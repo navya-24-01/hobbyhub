@@ -11,17 +11,18 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useAuth } from '../../Context/AuthorizationContext';
 
 const defaultTheme = createTheme();
 
+
 export default function SignUpPage() {
-  const handleSubmit = (event) => {
+    const {signup} = useAuth();
+    
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    await signup(data.get('email'),data.get('password'))
   };
 
   return (
