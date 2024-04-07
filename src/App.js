@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SignUpPage from "./Components/Pages/SignUpPage";
-import LogInPage from "./Components/Pages/LogInPage";
 import WelcomePage from "./Components/Pages/WelcomePage";
 import HomePage from "./Components/Pages/HomePage";
 import { AuthorizationProvider } from "./Context/AuthorizationContext";
