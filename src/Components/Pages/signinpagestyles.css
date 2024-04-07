@@ -1,0 +1,12 @@
+.a {
+    fill: none;
+}
+
+.b {
+    clip-path: url(#a);
+}
+
+.d {
+    opacity: 0.5;
+    isolation: isolate;
+}
