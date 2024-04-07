@@ -20,7 +20,7 @@ export default function WelcomePage() {
                                     Sign In
                                     <i class="ms-2" data-feather="arrow-right"></i>
                                 </a>
-                                <a class="btn btn-link fw-500" href=".signup">Sign Up</a>
+                                <a class="btn btn-link fw-500" href="./signup">Sign Up</a>
                             </div>
                         </div>
                     </div>
