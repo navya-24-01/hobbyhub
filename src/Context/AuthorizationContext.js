@@ -30,8 +30,10 @@ export function AuthorizationProvider({ children }) {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+        console.log("loggedin")
       })
       .catch((error) => {
+        console.log(error)
       });
   }
 
