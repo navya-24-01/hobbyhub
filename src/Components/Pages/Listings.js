@@ -1,11 +1,46 @@
-import React, { useState } from "react";
-import Navbar from "./Navbar"; // Ensure the path to Navbar is correct
+import React, { useState, useEffect } from "react";
+import Navbar from "./Navbar";
 import "./styles.css";
 import { Link } from "react-router-dom";
+import { db } from "../../Config/firebase";
+import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 
 export default function ListingsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [likes, setLikes] = useState({});
+  const [listings, setListings] = useState([]);
+
+  useEffect(() => {
+    const fetchListings = async () => {
+      const listingsCollection = collection(db, "listings");
+      const listingsSnapshot = await getDocs(listingsCollection);
+      const listingsList = [];
+
+      for (const listingDoc of listingsSnapshot.docs) {
+        const listingData = listingDoc.data();
+        const userRef = doc(db, "users", listingData.seller);
+        const userSnap = await getDoc(userRef);
+
+        if (userSnap.exists()) {
+          const userData = userSnap.data();
+          listingsList.push({
+            id: listingDoc.id,
+            ...listingData,
+            sellerUID: userData.UID || listingData.seller, // Fallback to listingData.seller if UID is not found
+          });
+        } else {
+          listingsList.push({
+            id: listingDoc.id,
+            ...listingData,
+          });
+        }
+      }
+
+      setListings(listingsList);
+    };
+
+    fetchListings();
+  }, []);
 
   const handleLike = (index) => {
     setLikes((prevLikes) => ({
@@ -13,63 +48,6 @@ export default function ListingsPage() {
       [index]: !prevLikes[index],
     }));
   };
-
-  const listings = [
-    {
-      title: "High-Performance Ski Board",
-      description:
-        "Hit the slopes with our top-of-the-line ski boards, perfect for all skill levels.",
-      imageUrl: "https://source.unsplash.com/featured/?ski",
-      price: "$40/day",
-      user: "John Doe",
-      userProfilePic: "https://randomuser.me/api/portraits/men/10.jpg",
-    },
-    {
-      title: "Mountain Bike Rental",
-      description:
-        "Explore the trails with our durable and reliable mountain bikes, suitable for various terrains.",
-      imageUrl: "https://source.unsplash.com/featured/?mountainbike",
-      price: "$30/day",
-      user: "John Doe",
-      userProfilePic: "https://randomuser.me/api/portraits/men/10.jpg",
-    },
-    {
-      title: "Complete Hiking Gear Set",
-      description:
-        "Get ready for the outdoors with our comprehensive hiking gear set, including backpack, tent, and navigation tools.",
-      imageUrl: "https://source.unsplash.com/featured/?hiking",
-      price: "$50/day",
-      user: "John Doe",
-      userProfilePic: "https://randomuser.me/api/portraits/men/10.jpg",
-    },
-    {
-      title: "Professional Camera Equipment",
-      description:
-        "Capture your moments with high-quality camera gear, perfect for photography enthusiasts and professionals.",
-      imageUrl: "https://source.unsplash.com/featured/?camera",
-      price: "$70/day",
-      user: "John Doe",
-      userProfilePic: "https://randomuser.me/api/portraits/men/10.jpg",
-    },
-    {
-      title: "Camping Tent for Two",
-      description:
-        "Enjoy a night under the stars with our spacious and comfortable camping tents, ideal for a couple's getaway.",
-      imageUrl: "https://source.unsplash.com/featured/?camping",
-      price: "$25/day",
-      user: "John Doe",
-      userProfilePic: "https://randomuser.me/api/portraits/men/10.jpg",
-    },
-    {
-      title: "Ocean Kayak Adventure",
-      description:
-        "Paddle through the waves with our stable and easy-to-navigate ocean kayaks, great for explorers of all levels.",
-      imageUrl: "https://source.unsplash.com/featured/?kayak",
-      price: "$45/day",
-      user: "John Doe",
-      userProfilePic: "https://randomuser.me/api/portraits/men/10.jpg",
-    },
-  ];
 
   const filteredListings = listings.filter((listing) =>
     listing.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -106,10 +84,13 @@ export default function ListingsPage() {
               <div className="row gx-5">
                 {filteredListings.length > 0 ? (
                   filteredListings.map((listing, index) => (
-                    <div className="col-lg-4 mb-5" key={index}>
+                    <div className="col-lg-4 mb-5" key={listing.id}>
                       <div className="card lift h-100">
                         <img
-                          src={listing.imageUrl}
+                          src={
+                            listing.url ||
+                            "https://source.unsplash.com/featured/?hobby"
+                          }
                           className="card-img-top"
                           alt={listing.title}
                           style={{ height: "250px", objectFit: "cover" }}
@@ -118,18 +99,9 @@ export default function ListingsPage() {
                           <h5 className="card-title">{listing.title}</h5>
                           <p className="card-text">{listing.description}</p>
                           <div className="user-info mb-2">
-                            <img
-                              src={listing.userProfilePic}
-                              alt={listing.user}
-                              style={{
-                                width: "30px",
-                                height: "30px",
-                                borderRadius: "50%",
-                              }}
-                            />
-                            <span className="ms-2">{listing.user}</span>
+                            <span className="ms-2">{listing.sellerUID}</span>
                           </div>
-                          <p className="fw-bold">{listing.price}</p>
+                          <p className="fw-bold">${listing.hourlyrate}/hour</p>
                           <div className="d-flex justify-content-between align-items-center">
                             <Link to="/chat" className="btn btn-primary">
                               Chat Now
