@@ -1,5 +1,5 @@
-import React, { useContext, useState, createContext } from "react";
-import { collection, addDoc } from "firebase/firestore";
+import React, { useContext, useState, createContext} from "react";
+import { collection, addDoc, doc, updateDoc, arrayUnion } from "firebase/firestore";
 import { db } from "../Config/firebase.js";
 import { useAuth } from "./AuthorizationContext.js"; // Import the useAuth hook
 
@@ -21,13 +21,21 @@ export function ListingProvider({ children }) {
         // Include the user's ID in the listing data
         const listingWithUserID = {
           ...listingData,
-          seller: currentUser.uid // Add the userId field
+          seller: currentUser.uid, // Add the userId field
         };
 
-        const docRef = await addDoc(collection(db, "listings"), listingWithUserID); // Make sure the collection name is correct
-        console.log("Listing created with ID: ", docRef.id);
+        const docRef = await addDoc(
+          collection(db, "listings"),
+          listingWithUserID
+        ); // Make sure the collection name is correct
+        const listingid = docRef.id;
+
+        const userRef = doc(db, "user", currentUser.uid);
+        await updateDoc(userRef, {
+          userslistings: arrayUnion(listingid),
+        });
         setLoading(false);
-        return docRef.id; 
+        return docRef.id;
       } else {
         throw new Error("No user is currently logged in.");
       }
@@ -40,7 +48,7 @@ export function ListingProvider({ children }) {
 
   const value = {
     createListing,
-    loading
+    loading,
   };
 
   return (
