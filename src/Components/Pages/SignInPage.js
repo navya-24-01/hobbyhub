@@ -1,13 +1,20 @@
 import { useAuth } from '../../Context/AuthorizationContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignInPage() {
     const {login} = useAuth();
+    const navigate = useNavigate();
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        await login(data.get('email'),data.get('password'))
+        
+        const success = await login(data.get('email'), data.get('password'));
+        if (success) {
+          navigate('/home'); 
+        } else {
+          console.log("No success");
+        }
       };
-
     return (<div id="layoutDefault">
     <div id="layoutDefault_content">
         <main>
@@ -36,7 +43,7 @@ export default function SignInPage() {
                         <button class="btn btn-teal fw-500 w-100" type="submit">Sign In</button>
                     </div>
                     <p class="page-header-ui-text small mb-0">
-                    Don't have an account? Click here to <a href=".signup">Sign Up</a>
+                    Don't have an account? Click here to <a href="./signup">Sign Up</a>
                 </p>
                 </form>
                 

@@ -6,18 +6,49 @@ import Listings from "./Components/Pages/Listings";
 import { AuthorizationProvider } from "./Context/AuthorizationContext";
 import CheckoutForm from "./Components/Pages/Checkout";
 import SignInPage from "./Components/Pages/SignInPage";
+import PrivateRoute from "./Components/Pages/PrivateRoute";
+import { ListingProvider } from "./Context/ListingContext";
+import CreateListingPage from "./Components/Pages/CreateAListingPage";
 
 function App() {
   return (
     <Router>
       <AuthorizationProvider>
+        <ListingProvider>
         <Routes>
           <Route exact path="/" Component={WelcomePage} />
           <Route exact path="/signup" Component={SignUpPage} />
           <Route exact path="/signin" Component={SignInPage} />
-          <Route exact path="/home" Component={HomePage} />
-          <Route exact path="/listings" Component={Listings} />
+
+          <Route
+                    path="/home"
+                    element={
+                      <PrivateRoute>
+                        <HomePage />
+                      </PrivateRoute>
+                    }
+                  ></Route>
+        
+        <Route
+                    path="/createlisting"
+                    element={
+                      <PrivateRoute>
+                        <CreateListingPage />
+                      </PrivateRoute>
+                    }
+                  ></Route>
+
+<Route
+                    path="/listings"
+                    element={
+                      <PrivateRoute>
+                        <Listings/>
+                      </PrivateRoute>
+                    }
+                  ></Route>
+
         </Routes>
+        </ListingProvider>
       </AuthorizationProvider>
     </Router>
   );
