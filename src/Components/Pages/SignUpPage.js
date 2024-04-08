@@ -8,7 +8,8 @@ export default function SignUpPage() {
         const data = new FormData(event.currentTarget);
         // Assuming your signup function expects email and password as arguments
         await signup(data.get('email'), data.get('password'));
-    };
+    }
+       
 
     return (
         <div id="layoutDefault">

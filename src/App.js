@@ -9,6 +9,7 @@ import SignInPage from "./Components/Pages/SignInPage";
 import PrivateRoute from "./Components/Pages/PrivateRoute";
 import { ListingProvider } from "./Context/ListingContext";
 import CreateListingPage from "./Components/Pages/CreateAListingPage";
+import Chat from "./Components/Pages/Chat";
 
 function App() {
   return (
@@ -19,6 +20,8 @@ function App() {
           <Route exact path="/" Component={WelcomePage} />
           <Route exact path="/signup" Component={SignUpPage} />
           <Route exact path="/signin" Component={SignInPage} />
+          <Route path="/chat/:sellerUID" element={<Chat />} />
+        
 
           <Route
                     path="/home"

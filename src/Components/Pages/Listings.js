@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { db } from "../../Config/firebase";
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 
+
 export default function ListingsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [likes, setLikes] = useState({});
@@ -103,22 +104,22 @@ export default function ListingsPage() {
                           </div>
                           <p className="fw-bold">${listing.hourlyrate}/hour</p>
                           <div className="d-flex justify-content-between align-items-center">
-                            <Link to="/chat" className="btn btn-primary">
+
+                            <Link to={`/Chat/${listing.sellerUID}`} className="btn btn-primary">
                               Chat Now
                             </Link>
+
                             <button
                               onClick={() => handleLike(index)}
-                              className={`btn ${
-                                likes[index]
+                              className={`btn ${likes[index]
                                   ? "btn-danger"
                                   : "btn-outline-danger"
-                              }`}
+                                }`}
                               style={{ border: "none" }}
                             >
                               <i
-                                className={`${
-                                  likes[index] ? "fas fa-heart" : "far fa-heart"
-                                }`}
+                                className={`${likes[index] ? "fas fa-heart" : "far fa-heart"
+                                  }`}
                               ></i>
                             </button>
                           </div>
