@@ -26,7 +26,7 @@ export default function ListingsPage() {
           listingsList.push({
             id: listingDoc.id,
             ...listingData,
-            sellerUID: userData.UID || listingData.seller, // Fallback to listingData.seller if UID is not found
+            sellerUID: userData.UID || listingData.seller,
           });
         } else {
           listingsList.push({
@@ -85,44 +85,46 @@ export default function ListingsPage() {
                 {filteredListings.length > 0 ? (
                   filteredListings.map((listing, index) => (
                     <div className="col-lg-4 mb-5" key={listing.id}>
-                      <div className="card lift h-100">
-                        <img
-                          src={
-                            listing.url ||
-                            "https://source.unsplash.com/featured/?hobby"
-                          }
-                          className="card-img-top"
-                          alt={listing.title}
-                          style={{ height: "250px", objectFit: "cover" }}
-                        />
-                        <div className="card-body">
-                          <h5 className="card-title">{listing.title}</h5>
-                          <p className="card-text">{listing.description}</p>
-                          <div className="user-info mb-2">
-                            <span className="ms-2">{listing.sellerUID}</span>
-                          </div>
-                          <p className="fw-bold">${listing.hourlyrate}/hour</p>
-                          <div className="d-flex justify-content-between align-items-center">
-                            <Link to="/chat" className="btn btn-primary">
-                              Chat Now
-                            </Link>
-                            <button
-                              onClick={() => handleLike(index)}
-                              className={`btn ${
-                                likes[index]
-                                  ? "btn-danger"
-                                  : "btn-outline-danger"
-                              }`}
-                              style={{ border: "none" }}
-                            >
-                              <i
-                                className={`${
-                                  likes[index] ? "fas fa-heart" : "far fa-heart"
-                                }`}
-                              ></i>
-                            </button>
+                      <Link
+                        to={`/listing/${listing.id}`}
+                        style={{ textDecoration: "none", color: "inherit" }}
+                      >
+                        <div className="card lift h-100">
+                          <img
+                            src={
+                              listing.url ||
+                              "https://source.unsplash.com/featured/?hobby"
+                            }
+                            className="card-img-top"
+                            alt={listing.title}
+                            style={{ height: "250px", objectFit: "cover" }}
+                          />
+                          <div className="card-body">
+                            <h5 className="card-title">{listing.title}</h5>
+                            <p className="card-text">{listing.description}</p>
+                            <div className="user-info mb-2">
+                              <span className="ms-2">{listing.sellerUID}</span>
+                            </div>
+                            <p className="fw-bold">
+                              ${listing.hourlyrate}/hour
+                            </p>
                           </div>
                         </div>
+                      </Link>
+                      <div className="card-footer">
+                        <button
+                          onClick={() => handleLike(index)}
+                          className={`btn ${
+                            likes[index] ? "btn-danger" : "btn-outline-danger"
+                          }`}
+                          style={{ border: "none" }}
+                        >
+                          <i
+                            className={`${
+                              likes[index] ? "fas fa-heart" : "far fa-heart"
+                            }`}
+                          ></i>
+                        </button>
                       </div>
                     </div>
                   ))

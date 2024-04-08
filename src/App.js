@@ -2,13 +2,16 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import SignUpPage from "./Components/Pages/SignUpPage";
 import WelcomePage from "./Components/Pages/WelcomePage";
 import HomePage from "./Components/Pages/HomePage";
-import Listings from "./Components/Pages/Listings";
 import { AuthorizationProvider } from "./Context/AuthorizationContext";
-import CheckoutForm from "./Components/Pages/Checkout";
+//import CheckoutForm from "./Components/Pages/Checkout";
 import SignInPage from "./Components/Pages/SignInPage";
+
 import PrivateRoute from "./Components/Pages/PrivateRoute";
 import { ListingProvider } from "./Context/ListingContext";
 import CreateListingPage from "./Components/Pages/CreateAListingPage";
+import ListingsPage from "./Components/Pages/Listings";
+import ListingDetails from "./Components/Pages/ListingDetails";
+
 
 function App() {
   return (
@@ -19,6 +22,10 @@ function App() {
           <Route exact path="/" Component={WelcomePage} />
           <Route exact path="/signup" Component={SignUpPage} />
           <Route exact path="/signin" Component={SignInPage} />
+
+          <Route exact path="/home" Component={HomePage} />
+          <Route path="/listings" element={<ListingsPage />} />
+
           <Route exact path="/reviews" Component={ReviewForm} />
 
           <Route
@@ -47,6 +54,8 @@ function App() {
                       </PrivateRoute>
                     }
                   ></Route>
+<Route path="/listing/:listingId" element={<ListingDetails />} />{" "}
+
 
         </Routes>
         </ListingProvider>
