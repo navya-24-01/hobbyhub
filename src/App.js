@@ -19,6 +19,7 @@ function App() {
           <Route exact path="/" Component={WelcomePage} />
           <Route exact path="/signup" Component={SignUpPage} />
           <Route exact path="/signin" Component={SignInPage} />
+          <Route exact path="/reviews" Component={ReviewForm} />
 
           <Route
                     path="/home"
