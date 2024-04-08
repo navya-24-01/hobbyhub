@@ -19460,4 +19460,99 @@ section {
 
 .secondary-action {
   background-color: #28a745; /* Adjust color based on your design */
+
+/* styles.css */
+
+/* Add custom styles for the star rating component */
+
+/* Styles for the stars */
+.star {
+  font-size: 36px; /* Increase the size of the stars */
+  cursor: pointer;
+}
+
+/* Styles for the active stars */
+.star.active {
+  color: gold; /* Change the color of the active stars */
+}
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+/* styles.css */
+/* styles.css */
+
+.review-form-container {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+}
+
+.star {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.star.active {
+  color: gold;
+}
+
+.star.inactive {
+  color: gray;
+}
+
+.review-description textarea {
+  width: 100%;
+  height: 100px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+}
+
+.submit-button {
+  padding: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.close-button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }

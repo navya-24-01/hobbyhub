@@ -39,7 +39,7 @@ export default function SignUpPage() {
                                                 <button className="btn btn-teal fw-500 w-100" type="submit">Sign Up</button>
                                             </div>
                                             <p className="page-header-ui-text small mb-0">
-                                                Already have an account? <a href=".signin">Sign In</a>.
+                                                Already have an account? <a href="./signin">Sign In</a>.
                                             </p>
                                         </form>
                                     </div>
