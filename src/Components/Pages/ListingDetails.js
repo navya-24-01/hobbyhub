@@ -51,6 +51,9 @@ function ListingDetails() {
                 <strong>Condition:</strong> {listing.condition}
               </p>
               <p>
+                <strong>Hourly Rate:</strong> ${listing.hourlyrate}
+              </p>
+              <p>
                 <strong>Seller:</strong> {listing.sellerName}
               </p>
               <div className="listing-actions">
