@@ -11,19 +11,18 @@ export function useListing() {
 
 export function ListingProvider({ children }) {
   const [loading, setLoading] = useState(false);
-  const { currentUser } = useAuth(); // Make sure this is the correct field from your auth context
+  const { currentUser } = useAuth();
 
   async function createListing(listingData) {
     setLoading(true);
     try {
-      // Check if the currentUser is not null
+      
       if (currentUser) {
-        // Include the user's ID in the listing data
+        
         const listingWithUserID = {
           ...listingData,
-          seller: currentUser.uid, // Add the userId field
-        };
-
+          seller: currentUser.uid, 
+        }
         const docRef = await addDoc(
           collection(db, "listings"),
           listingWithUserID
