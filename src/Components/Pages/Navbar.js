@@ -63,7 +63,7 @@ function Navbar() {
                                             <div class="row g-0">
                                                 <div class="col-lg-4 p-lg-5">
                                                     <h6 class="dropdown-header text-primary">Seller's Market</h6>
-                                                    <a class="dropdown-item" href="page-company-about.html">Create A Listing</a>
+                                                    <a class="dropdown-item" href="./createlisting">Create A Listing</a>
                                                     <a class="dropdown-item" href="page-company-pricing.html">View My Listings</a>
                                                     <a class="dropdown-item" href="page-company-contact.html">View My Rented Stuff</a>
                                                     <a class="dropdown-item" href="page-company-team.html">View My Reviews</a>

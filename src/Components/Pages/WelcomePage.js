@@ -1,7 +1,7 @@
 import Navbar from "./Navbar"
 import "./styles.css"
 import { Link } from 'react-router-dom';
-import LoginModal from "./LoginModal";
+
 
 
 export default function WelcomePage() {

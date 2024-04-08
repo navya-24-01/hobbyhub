@@ -7,6 +7,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../Config/firebase.js";
 
+
 export const AuthorizationContext = createContext();
 
 export function useAuth() {
@@ -27,14 +28,14 @@ export function AuthorizationProvider({ children }) {
   }
 
   async function login(email, password) {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log("loggedin")
-      })
-      .catch((error) => {
-        console.log(error)
-      });
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      console.log("Logged in");
+      return true; // If login is successful, return true.
+    } catch (error) {
+      console.error(error);
+      return false; // If an error occurs, return false.
+    }
   }
 
   async function logout() {
