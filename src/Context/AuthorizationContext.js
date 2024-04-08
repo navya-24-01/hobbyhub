@@ -17,13 +17,19 @@ export function useAuth() {
 export function AuthorizationProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
+  const [loginError, setLoginError] = useState('Please sign in with your email and password')
+  const [signupError, setSignUpError] = useState('Please sign up with a valid email and a 6 character password')
+  
 
   async function signup(email, password) {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+        setSignUpError("An email containing the verification link was sent to your mail.")
       })
       .catch((error) => {
+        console.log(error)
+        setSignUpError(error.message)
       });
   }
 
@@ -31,9 +37,11 @@ export function AuthorizationProvider({ children }) {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       console.log("Logged in");
+      setLoginError("Login Succesful!")
       return true; // If login is successful, return true.
     } catch (error) {
-      console.error(error);
+      setLoginError(error.message)
+      console.error(error.message);
       return false; // If an error occurs, return false.
     }
   }
@@ -55,6 +63,8 @@ export function AuthorizationProvider({ children }) {
   }, []);
 
   const value = {
+    loginError,
+    signupError,
     currentUser,
     signup,
     login,

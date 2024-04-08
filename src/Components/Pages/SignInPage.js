@@ -2,7 +2,7 @@ import { useAuth } from '../../Context/AuthorizationContext';
 import { useNavigate } from 'react-router-dom';
 
 export default function SignInPage() {
-    const {login} = useAuth();
+    const {login, loginError} = useAuth();
     const navigate = useNavigate();
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -24,7 +24,9 @@ export default function SignInPage() {
         <div class="row gx-5 justify-content-center">
             <div class="col-xl-8 col-lg-10 text-center">
                 <h1 class="page-header-ui-title">Sign In</h1>
+                <p class="page-header-ui-text mb-0">{loginError}</p>
             </div>
+            
         </div>
         <div class="row gx-5 justify-content-center">
             <div class="col-xl-6 col-lg-8 text-center">

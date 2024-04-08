@@ -1,7 +1,7 @@
 import { useAuth } from '../../Context/AuthorizationContext';
 
 export default function SignUpPage() {
-    const { signup } = useAuth();
+    const { signup, signupError } = useAuth();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -20,7 +20,12 @@ export default function SignUpPage() {
                                 <div className="row gx-5 justify-content-center">
                                     <div className="col-xl-8 col-lg-10 text-center">
                                         <h1 className="page-header-ui-title">Sign Up</h1>
+                                        <p className="page-header-ui-text small mb-0">
+                                               {signupError}
+                                            </p>
+                                            <h1></h1>
                                     </div>
+                                    
                                 </div>
                                 <div className="row gx-5 justify-content-center">
                                     <div className="col-xl-6 col-lg-8 text-center">
