@@ -19403,3 +19403,61 @@ section {
     border-right: 0.0625rem solid #e0e5ec;
   }
 }
+
+.listing-details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.listing-image-container {
+  width: 100%;
+  max-width: 600px; /* Adjust based on your design */
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.listing-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.listing-info {
+  margin-top: 20px;
+  text-align: left;
+  max-width: 600px; /* Adjust based on your design */
+}
+
+.listing-info h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.listing-info p {
+  margin-bottom: 5px;
+  color: #333; /* Adjust color based on your design */
+}
+
+.listing-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.listing-actions .btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: white;
+  text-align: center;
+}
+
+.primary-action {
+  background-color: #007bff; /* Adjust color based on your design */
+}
+
+.secondary-action {
+  background-color: #28a745; /* Adjust color based on your design */
+}
