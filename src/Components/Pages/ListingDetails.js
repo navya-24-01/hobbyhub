@@ -4,10 +4,16 @@ import { db } from "../../Config/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import Navbar from "./Navbar";
 import "./styles.css";
+import PayPalButton from './PayPalButton'; 
 
 function ListingDetails() {
   const { listingId } = useParams();
   const [listing, setListing] = useState(null);
+  const [showPayPal, setShowPayPal] = useState(false);
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -23,6 +29,28 @@ function ListingDetails() {
 
     fetchListing();
   }, [listingId]);
+
+  const handlePayNowClick = () => {
+    if (!startDate || !endDate) {
+      alert("Please select both start and end dates with times.");
+      return;
+    }
+
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const hours = Math.abs(end - start) / 36e5; // Convert milliseconds to hours
+   //hours = Math.round(hours);
+    console.log(hours);
+
+    if (hours > 0) {
+      const total = hours * parseFloat(listing.hourlyrate); // Calculate total amount
+      setTotalAmount(total); // Update total amount for payment
+      setShowPayPal(true); // Show PayPal Button
+    } else {
+      alert("End date and time must be after the start date and time.");
+      setShowPayPal(false); // Hide PayPal button if input is invalid
+    }
+  };
 
   return (
     <div>
@@ -56,11 +84,35 @@ function ListingDetails() {
               <p>
                 <strong>Seller:</strong> {listing.sellerName}
               </p>
+              <p>
+                <strong>Rental Period:</strong> 
+              </p>
+              <div className="date-selection">
+                <input 
+                  type="datetime-local" 
+                  value={startDate} 
+                  onChange={e => setStartDate(e.target.value)} 
+                />
+                <input 
+                  type="datetime-local" 
+                  value={endDate} 
+                  onChange={e => setEndDate(e.target.value)} 
+                />
+              </div>
+
               <div className="listing-actions">
                 <Link to="/chat" className="btn primary-action">
                   Chat Now with Seller
                 </Link>
-                <button className="btn secondary-action">Pay Now</button>
+                <button onClick={handlePayNowClick} className="btn secondary-action">
+                Pay Now
+              </button>
+              {showPayPal && (
+                <PayPalButton 
+                  description={listing.title} 
+                  amount={totalAmount} // Ensure hourlyrate is a valid number
+                />
+              )}
               </div>
             </div>
           </div>
