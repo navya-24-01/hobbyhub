@@ -121,7 +121,7 @@ function App() {
               path="/listings"
               element={
                 <PrivateRoute>
-                  <Listings />
+                  <ListingsPage />
                 </PrivateRoute>
               }
             ></Route>
