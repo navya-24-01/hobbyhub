@@ -35,15 +35,23 @@ function ListingDetails() {
       alert("Please select both start and end dates with times.");
       return;
     }
-
+  
+    console.log("Start Date String:", startDate);
+    console.log("End Date String:", endDate);
+  
     const start = new Date(startDate);
     const end = new Date(endDate);
+  
+    console.log("Start Date Object:", start);
+    console.log("End Date Object:", end);
+  
     const hours = Math.abs(end - start) / 36e5; // Convert milliseconds to hours
-   //hours = Math.round(hours);
-    console.log(hours);
-
+  
+    console.log("Calculated Hours:", hours);
+  
     if (hours > 0) {
       const total = hours * parseFloat(listing.hourlyrate); // Calculate total amount
+      console.log("Total Amount:", total);
       setTotalAmount(total); // Update total amount for payment
       setShowPayPal(true); // Show PayPal Button
     } else {
@@ -51,6 +59,7 @@ function ListingDetails() {
       setShowPayPal(false); // Hide PayPal button if input is invalid
     }
   };
+  
 
   return (
     <div>
