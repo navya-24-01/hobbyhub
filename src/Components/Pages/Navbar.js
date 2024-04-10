@@ -94,14 +94,14 @@ function Navbar() {
                         <h6 class="dropdown-header text-primary">Blogs</h6>
                         <a
                           class="dropdown-item"
-                          href="landing-multipurpose.html"
+                          href="./exploreBlogs"
                         >
                           Explore Blogs
                         </a>
-                        <a class="dropdown-item" href="landing-agency.html">
+                        <a class="dropdown-item" href="./MyBlog">
                           My Blogs
                         </a>
-                        <a class="dropdown-item" href="landing-press.html">
+                        <a class="dropdown-item" href="./writeBlog">
                           Write Blog
                         </a>
                         <a class="dropdown-item" href="landing-press.html">
