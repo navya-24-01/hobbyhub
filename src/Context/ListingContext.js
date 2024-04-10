@@ -1,5 +1,11 @@
-import React, { useContext, useState, createContext} from "react";
-import { collection, addDoc, doc, updateDoc, arrayUnion } from "firebase/firestore";
+import React, { useContext, useState, createContext } from "react";
+import {
+  collection,
+  addDoc,
+  doc,
+  updateDoc,
+  arrayUnion,
+} from "firebase/firestore";
 import { db } from "../Config/firebase.js";
 import { useAuth } from "./AuthorizationContext.js"; // Import the useAuth hook
 
@@ -16,13 +22,12 @@ export function ListingProvider({ children }) {
   async function createListing(listingData) {
     setLoading(true);
     try {
-      
       if (currentUser) {
-        
         const listingWithUserID = {
           ...listingData,
-          seller: currentUser.uid, 
-        }
+          seller: currentUser.uid, // Add the userId field
+        };
+
         const docRef = await addDoc(
           collection(db, "listings"),
           listingWithUserID
