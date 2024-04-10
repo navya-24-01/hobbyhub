@@ -17,6 +17,8 @@ import { ProfileProvider } from "./Context/ProfileContext";
 import ListingsPage from "./Components/Pages/Listings";
 import ListingDetails from "./Components/Pages/ListingDetails";
 
+import WriteBlog from "./Components/Pages/WriteBlog";
+
 function App() {
   return (
     <Router>
@@ -134,6 +136,17 @@ function App() {
                 </PrivateRoute>
               }
             ></Route>
+
+            <Route
+              path="/writeBlog"
+              element={
+                <PrivateRoute>
+                  < WriteBlog/>
+                </PrivateRoute>
+              }
+            ></Route>
+
+
           </Routes>
         </ListingProvider>
         </ProfileProvider>
