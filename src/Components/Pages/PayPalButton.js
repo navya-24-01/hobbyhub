@@ -6,7 +6,7 @@ import { db } from "../../Config/firebase";
 import { CLIENT_ID } from '../../Config/config'; // Ensure this path is correct
 
 
-const PayPalButton = ({ description, amount, listingId, startDate, endDate, totalHours}) => {
+const PayPalButton = ({ description, amount, listingId, totalHours}) => {
     const [success, setSuccess] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [orderID, setOrderID] = useState("");
@@ -39,11 +39,11 @@ const PayPalButton = ({ description, amount, listingId, startDate, endDate, tota
      const onApprove = async (data, actions) => {
         
         return actions.order.capture().then(async function (details) {
-            if (!startDate || !endDate) {
+            /*if (!startDate || !endDate) {
                 console.error("Start date or end date is undefined.");
                 setErrorMessage("Cannot save payment record without valid dates.");
                 return;
-            }
+            }*/
             const paymentDetails = {
                 orderID: data.orderID,
                 payerID: data.payerID,
@@ -57,8 +57,6 @@ const PayPalButton = ({ description, amount, listingId, startDate, endDate, tota
                 status: "COMPLETED",
                 createdAt: new Date(),
                 listingId, // Captured from props
-                startDateTime: startDate, // Captured from props
-                endDateTime: endDate, // Captured from props
                 totalHours, // Calculated total hours
             };
 
