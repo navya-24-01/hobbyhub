@@ -23,12 +23,41 @@ const PayPalButton = ({ description, amount }) => {
         });
     };
 
-    // Handle order approval
-    const onApprove = (data, actions) => {
-        return actions.order.capture().then(function (details) {
+    /*// Handle order approval
+     const onApprove = (data, actions) => {
+         return actions.order.capture().then(function (details) {
+             setSuccess(true);
+         });
+     };*/
+
+    const onApprove = async (data, actions) => {
+        return actions.order.capture().then(async function (details) {
             setSuccess(true);
+
+            // Construct the payment details object you want to save
+            const paymentDetails = {
+                orderID: data.orderID,
+                payerID: data.payerID,
+                paymentID: details.id,
+                paymentToken: details.purchase_units[0].payments.captures[0].id,
+                amount: details.purchase_units[0].amount.value,
+                currency: details.purchase_units[0].amount.currency_code,
+                description: description,
+                status: "COMPLETED",
+                createdAt: new Date(),
+            };
+
+            // Save the payment details to Firestore
+            try {
+                await setDoc(doc(db, "payments", paymentDetails.paymentToken), paymentDetails);
+                console.log("Payment record saved successfully");
+            } catch (error) {
+                console.error("Error saving payment record: ", error);
+                setErrorMessage("Payment was successful, but we encountered an error saving the record. Please contact support.");
+            }
         });
     };
+
 
     // Handle errors
     const onError = (data, actions) => {
@@ -38,8 +67,9 @@ const PayPalButton = ({ description, amount }) => {
     useEffect(() => {
         if (success) {
             alert("Payment successful!!");
+
             console.log('Order successful. Your order id is:', orderID);
-            
+
         }
     }, [success]);
 
