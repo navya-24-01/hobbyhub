@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "./Navbar"; // Ensure this is the correct path
+import Navbar from "./Navbar";
 import "./styles.css";
 import { Link } from "react-router-dom";
 import { db } from "../../Config/firebase";
@@ -14,7 +14,7 @@ function SellerListings() {
     const fetchSellerListings = async () => {
       if (!currentUser) return;
 
-      const userRef = doc(db, "users", currentUser.uid);
+      const userRef = doc(db, "user", currentUser.uid);
       const userSnap = await getDoc(userRef);
 
       if (userSnap.exists()) {
