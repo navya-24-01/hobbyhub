@@ -16,10 +16,10 @@ function ListingDetails() {
   const [totalAmount, setTotalAmount] = useState(0);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const { currentUser } = useAuth();
-  const { createConversation } = useConversations();
+  const {currentUser} = useAuth();
+  const{createConversation} = useConversations();
   const navigate = useNavigate();
-
+  
 
 
   useEffect(() => {
@@ -39,11 +39,11 @@ function ListingDetails() {
 
   function ListingDetails() {
     // Other state and useEffect hooks
-
+  
     const navigate = useNavigate(); // Get the navigate function
-
-
-
+  
+   
+  
     // Your component JSX
   }
   const handleChatNowClick = async () => {
@@ -149,9 +149,9 @@ function ListingDetails() {
 
               <div className="listing-actions">
 
-                <button onClick={handleChatNowClick} className="btn primary-action">
-                  Chat Now with Seller
-                </button>
+              <button onClick={handleChatNowClick} className="btn primary-action">
+                Chat Now with Seller
+              </button>
 
                 <button onClick={handlePayNowClick} className="btn secondary-action">
                   Pay Now
@@ -161,12 +161,9 @@ function ListingDetails() {
                     description={listing.title}
                     amount={totalAmount}
                     listingId={listingId} // the ID of the listing
-                    //startDateTime={startDate} // start date and time
-                    //endDateTime={endDate} // end date and time
-                    totalHours={Math.abs(new Date(endDate) - new Date(startDate)) / 36e5}
-                    sellerId={listing.sellerId} 
-                    startDate={startDate} // pass startDate as prop
-                    endDate={endDate} // pass endDate as prop
+                    startDateTime={startDate} // start date and time
+                    endDateTime={endDate} // end date and time
+                    totalHours={Math.abs(new Date(endDate) - new Date(startDate)) / 36e5} // calculated total hours
                   />
                 )}
 

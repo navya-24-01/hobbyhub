@@ -6,7 +6,7 @@ import { db } from "../../Config/firebase";
 import { CLIENT_ID } from '../../Config/config'; // Ensure this path is correct
 
 
-const PayPalButton = ({ description, amount, listingId, totalHours, sellerId,startDate,endDate}) => {
+const PayPalButton = ({ description, amount, listingId, startDate, endDate, totalHours}) => {
     const [success, setSuccess] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [orderID, setOrderID] = useState("");
@@ -39,11 +39,11 @@ const PayPalButton = ({ description, amount, listingId, totalHours, sellerId,sta
      const onApprove = async (data, actions) => {
         
         return actions.order.capture().then(async function (details) {
-            /*if (!startDate || !endDate) {
+            if (!startDate || !endDate) {
                 console.error("Start date or end date is undefined.");
                 setErrorMessage("Cannot save payment record without valid dates.");
                 return;
-            }*/
+            }
             const paymentDetails = {
                 orderID: data.orderID,
                 payerID: data.payerID,
@@ -57,10 +57,9 @@ const PayPalButton = ({ description, amount, listingId, totalHours, sellerId,sta
                 status: "COMPLETED",
                 createdAt: new Date(),
                 listingId, // Captured from props
+                startDateTime: startDate, // Captured from props
+                endDateTime: endDate, // Captured from props
                 totalHours, // Calculated total hours
-                startDate, // Newly included start date
-                endDate, // Newly included end date
-                
             };
 
             // Attempt to save the payment details to Firestore and update user's paymentsMade
@@ -78,15 +77,6 @@ const PayPalButton = ({ description, amount, listingId, totalHours, sellerId,sta
                     console.log("User record updated successfully with payment reference");
                 } else {
                     throw new Error("User not found.");
-                }
-
-                if (sellerId) {
-                    // Update the seller's document with the new payment transaction
-                    const sellerRef = doc(db, "user", sellerId);
-                    await updateDoc(sellerRef, {
-                        paymentsReceived: arrayUnion(paymentDetails.paymentToken),
-                    });
-                    console.log("Seller record updated successfully with payment transaction");
                 }
 
                 setSuccess(true);
