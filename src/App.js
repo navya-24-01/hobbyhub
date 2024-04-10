@@ -21,11 +21,14 @@ import { ConversationsProvider } from "./Context/ConversationsContext";
 
 import { Chat } from "./Components/Pages/Chat";
 
+import WriteBlog from "./Components/Pages/WriteBlog";
+
 function App() {
   return (
     <Router>
       <AuthorizationProvider>
         <ProfileProvider>
+
           <ListingProvider>
             <ConversationsProvider>
             <Routes>
@@ -131,9 +134,23 @@ function App() {
                   </PrivateRoute>
                 }
               ></Route>
+              
+              <Route
+              path="/writeBlog"
+              element={
+                <PrivateRoute>
+                  < WriteBlog/>
+                </PrivateRoute>
+              }
+            ></Route>
+
             </Routes>
             </ConversationsProvider>
           </ListingProvider>
+          
+
+           
+
         </ProfileProvider>
       </AuthorizationProvider>
     </Router>
