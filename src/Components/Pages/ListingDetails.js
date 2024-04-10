@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { db } from "../../Config/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import Navbar from "./Navbar";
 import "./styles.css";
-import PayPalButton from './PayPalButton'; 
+import PayPalButton from './PayPalButton';
+import { useAuth } from "../../Context/AuthorizationContext";
+import { useConversations } from "../../Context/ConversationsContext";
 
 function ListingDetails() {
   const { listingId } = useParams();
@@ -13,6 +15,9 @@ function ListingDetails() {
   const [totalAmount, setTotalAmount] = useState(0);
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const {currentUser} = useAuth();
+  const{createConversation} = useConversations();
+  const navigate = useNavigate();
   
 
   useEffect(() => {
@@ -29,6 +34,37 @@ function ListingDetails() {
 
     fetchListing();
   }, [listingId]);
+
+  function ListingDetails() {
+    // Other state and useEffect hooks
+  
+    const navigate = useNavigate(); // Get the navigate function
+  
+   
+  
+    // Your component JSX
+  }
+  const handleChatNowClick = async () => {
+    // Assume you have the current user and the listing information
+    if (!currentUser) {
+      alert("Please log in to chat with the seller.");
+      return;
+    }
+    console.log(currentUser.uid)
+    console.log(listing.seller)
+    // Your existing logic to create a conversation...
+    const conversationId = await createConversation({
+      user1Id: currentUser.uid,
+      user2Id: listing.seller, // Assuming you have sellerId in the listing object
+    });
+
+    // Use the navigate function with the conversationId
+    if (conversationId) {
+      navigate(`/chat/${conversationId}`);
+    } else {
+      alert("Could not start a conversation. Please try again later.");
+    }
+  };
 
   const handlePayNowClick = () => {
     if (!startDate || !endDate) {
@@ -110,9 +146,9 @@ function ListingDetails() {
               </div>
 
               <div className="listing-actions">
-                <Link to="/chat" className="btn primary-action">
-                  Chat Now with Seller
-                </Link>
+              <button onClick={handleChatNowClick} className="btn primary-action">
+                Chat Now with Seller
+              </button>
                 <button onClick={handlePayNowClick} className="btn secondary-action">
                 Pay Now
               </button>

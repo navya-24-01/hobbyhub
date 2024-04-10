@@ -15,7 +15,8 @@ export default function ProfilePage() {
 
   const [profileData, setProfileData] = useState({
     username: '',
-    profilepic: ''
+    profilepic: '',
+    conversationIds: []
   });
 
   const handleChange = (e) => {
