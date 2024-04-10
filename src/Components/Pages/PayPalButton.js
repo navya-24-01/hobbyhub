@@ -6,7 +6,7 @@ import { db } from "../../Config/firebase";
 import { CLIENT_ID } from '../../Config/config'; // Ensure this path is correct
 
 
-const PayPalButton = ({ description, amount, listingId, totalHours}) => {
+const PayPalButton = ({ description, amount, listingId, totalHours, sellerId,startDate,endDate}) => {
     const [success, setSuccess] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [orderID, setOrderID] = useState("");
@@ -58,6 +58,9 @@ const PayPalButton = ({ description, amount, listingId, totalHours}) => {
                 createdAt: new Date(),
                 listingId, // Captured from props
                 totalHours, // Calculated total hours
+                startDate, // Newly included start date
+                endDate, // Newly included end date
+                
             };
 
             // Attempt to save the payment details to Firestore and update user's paymentsMade
@@ -75,6 +78,15 @@ const PayPalButton = ({ description, amount, listingId, totalHours}) => {
                     console.log("User record updated successfully with payment reference");
                 } else {
                     throw new Error("User not found.");
+                }
+
+                if (sellerId) {
+                    // Update the seller's document with the new payment transaction
+                    const sellerRef = doc(db, "user", sellerId);
+                    await updateDoc(sellerRef, {
+                        paymentsReceived: arrayUnion(paymentDetails.paymentToken),
+                    });
+                    console.log("Seller record updated successfully with payment transaction");
                 }
 
                 setSuccess(true);
