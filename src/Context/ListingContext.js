@@ -6,6 +6,7 @@ import {
   updateDoc,
   arrayUnion,
 } from "firebase/firestore";
+
 import { db } from "../Config/firebase.js";
 import { useAuth } from "./AuthorizationContext.js"; // Import the useAuth hook
 
@@ -17,14 +18,14 @@ export function useListing() {
 
 export function ListingProvider({ children }) {
   const [loading, setLoading] = useState(false);
-  const { currentUser } = useAuth(); // Make sure this is the correct field from your auth context
+  const { currentUser } = useAuth();
 
   async function createListing(listingData) {
     setLoading(true);
     try {
-      // Check if the currentUser is not null
+      
       if (currentUser) {
-        // Include the user's ID in the listing data
+        
         const listingWithUserID = {
           ...listingData,
           seller: currentUser.uid, // Add the userId field
@@ -35,6 +36,7 @@ export function ListingProvider({ children }) {
           listingWithUserID
         ); // Make sure the collection name is correct
         const listingid = docRef.id;
+
 
         const userRef = doc(db, "user", currentUser.uid);
         await updateDoc(userRef, {
