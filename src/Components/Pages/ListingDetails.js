@@ -8,6 +8,7 @@ import PayPalButton from './PayPalButton';
 import { useAuth } from "../../Context/AuthorizationContext";
 import { useConversations } from "../../Context/ConversationsContext";
 
+
 function ListingDetails() {
   const { listingId } = useParams();
   const [listing, setListing] = useState(null);
@@ -19,6 +20,7 @@ function ListingDetails() {
   const{createConversation} = useConversations();
   const navigate = useNavigate();
   
+
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -71,20 +73,20 @@ function ListingDetails() {
       alert("Please select both start and end dates with times.");
       return;
     }
-  
+
     console.log("Start Date String:", startDate);
     console.log("End Date String:", endDate);
-  
+
     const start = new Date(startDate);
     const end = new Date(endDate);
-  
+
     console.log("Start Date Object:", start);
     console.log("End Date Object:", end);
-  
+
     const hours = Math.abs(end - start) / 36e5; // Convert milliseconds to hours
-  
+
     console.log("Calculated Hours:", hours);
-  
+
     if (hours > 0) {
       const total = hours * parseFloat(listing.hourlyrate); // Calculate total amount
       console.log("Total Amount:", total);
@@ -95,7 +97,7 @@ function ListingDetails() {
       setShowPayPal(false); // Hide PayPal button if input is invalid
     }
   };
-  
+
 
   return (
     <div>
@@ -130,34 +132,41 @@ function ListingDetails() {
                 <strong>Seller:</strong> {listing.sellerName}
               </p>
               <p>
-                <strong>Rental Period:</strong> 
+                <strong>Rental Period:</strong>
               </p>
               <div className="date-selection">
-                <input 
-                  type="datetime-local" 
-                  value={startDate} 
-                  onChange={e => setStartDate(e.target.value)} 
+                <input
+                  type="datetime-local"
+                  value={startDate}
+                  onChange={e => setStartDate(e.target.value)}
                 />
-                <input 
-                  type="datetime-local" 
-                  value={endDate} 
-                  onChange={e => setEndDate(e.target.value)} 
+                <input
+                  type="datetime-local"
+                  value={endDate}
+                  onChange={e => setEndDate(e.target.value)}
                 />
               </div>
 
               <div className="listing-actions">
+
               <button onClick={handleChatNowClick} className="btn primary-action">
                 Chat Now with Seller
               </button>
+
                 <button onClick={handlePayNowClick} className="btn secondary-action">
-                Pay Now
-              </button>
-              {showPayPal && (
-                <PayPalButton 
-                  description={listing.title} 
-                  amount={totalAmount} // Ensure hourlyrate is a valid number
-                />
-              )}
+                  Pay Now
+                </button>
+                {showPayPal && (
+                  <PayPalButton
+                    description={listing.title}
+                    amount={totalAmount}
+                    listingId={listingId} // the ID of the listing
+                    startDateTime={startDate} // start date and time
+                    endDateTime={endDate} // end date and time
+                    totalHours={Math.abs(new Date(endDate) - new Date(startDate)) / 36e5} // calculated total hours
+                  />
+                )}
+
               </div>
             </div>
           </div>
