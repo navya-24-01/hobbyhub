@@ -92,10 +92,7 @@ function Navbar() {
                       </div>
                       <div class="col-lg-6">
                         <h6 class="dropdown-header text-primary">Blogs</h6>
-                        <a
-                          class="dropdown-item"
-                          href="./exploreBlogs"
-                        >
+                        <a class="dropdown-item" href="./exploreBlogs">
                           Explore Blogs
                         </a>
                         <a class="dropdown-item" href="./MyBlog">
@@ -153,7 +150,7 @@ function Navbar() {
                     <a class="dropdown-item" href="./seller-listings">
                       View My Listings
                     </a>
-                    <a class="dropdown-item" href="page-company-contact.html">
+                    <a class="dropdown-item" href="./rentedlistings">
                       View My Rented Stuff
                     </a>
                     <a class="dropdown-item" href="page-company-team.html">
