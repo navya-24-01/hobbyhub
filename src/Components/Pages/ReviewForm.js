@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './styles.css'; // Import your custom styles
 import { Link } from 'react-router-dom';
+import { db } from '../../Config/firebase';
 
 const ReviewForm = ({ onSubmit, renterId, renteeUsername }) => {
   const [rating, setRating] = useState(0);
@@ -20,8 +21,8 @@ const ReviewForm = ({ onSubmit, renterId, renteeUsername }) => {
       renteeUsername,
       submissionDate: new Date().toISOString()
     };
-    const response = await submitReview(reviewData);
-    if (response.ok) {
+    try {
+      await db.collection('reviews').add(reviewData);
       console.log('Review submitted successfully!');
       setRating(0);
       setDescription('');
@@ -29,10 +30,11 @@ const ReviewForm = ({ onSubmit, renterId, renteeUsername }) => {
       if (onSubmit) {
         onSubmit();
       }
-    } else {
-      console.error('Failed to submit review.');
+    } catch (error) {
+      console.error('Error submitting review:', error);
     }
   };
+  
 
   return (
     <section class="bg-light pt-15 pb-10">

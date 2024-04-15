@@ -6,6 +6,10 @@ import {
   updateDoc,
   arrayUnion,
 } from "firebase/firestore";
+<<<<<<< HEAD
+=======
+
+>>>>>>> ListingBranch
 import { db } from "../Config/firebase.js";
 import { useAuth } from "./AuthorizationContext.js"; // Import the useAuth hook
 
@@ -34,6 +38,10 @@ export function ListingProvider({ children }) {
         ); // Make sure the collection name is correct
         const listingid = docRef.id;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> ListingBranch
         const userRef = doc(db, "user", currentUser.uid);
         await updateDoc(userRef, {
           userslistings: arrayUnion(listingid),
