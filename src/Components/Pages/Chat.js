@@ -39,7 +39,7 @@ export const Chat = () => {
     return () => unsubscribe();
   }, [id, setMessages]);
 
-  const handleSubmitMessage = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (newMessage === "") {
       console.error("Message is empty.");
