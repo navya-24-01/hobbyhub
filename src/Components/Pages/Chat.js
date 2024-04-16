@@ -10,18 +10,18 @@ import {
 } from "firebase/firestore";
 import { db } from "../../Config/firebase";
 import { useAuth } from "../../Context/AuthorizationContext";
-import { useParams } from "react-router-dom"; 
+import { useParams } from "react-router-dom";
 
 export const Chat = () => {
   const { conversationId } = useParams();
-  const id  = conversationId;
+  const id = conversationId;
   const [newMessage, setNewMessage] = useState("");
   const messageRef = collection(db, "messages");
   const [messages, setMessages] = useState([]);
-  const { currentUser } = useAuth(); 
+  const { currentUser } = useAuth();
 
   useEffect(() => {
-    console.log(id)
+    console.log(id);
     const queryMessages = query(
       messageRef,
       where("id", "==", id),
@@ -32,16 +32,17 @@ export const Chat = () => {
       snapshot.forEach((doc) => {
         messages.push({ ...doc.data(), id: doc.id });
       });
-      console.log(messages)
+      console.log(messages);
       setMessages(messages);
     });
 
     return () => unsubscribe();
   }, [id, setMessages]);
 
-  const handleSubmit = async (event) => {
+  const handleSubmitMessage = async (event) => {
     event.preventDefault();
     if (newMessage === "") {
+      console.error("Message is empty.");
       return;
     }
 
@@ -54,6 +55,9 @@ export const Chat = () => {
 
     setNewMessage("");
   };
+
+  // JSX for the chat component goes here
+
 
   return (
     <div>

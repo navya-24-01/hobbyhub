@@ -19557,3 +19557,24 @@ section {
   cursor: pointer;
 }
 
+#customBanner {
+  background: linear-gradient(to right, #007bff, #654ea3); /* Example gradient background */
+  padding: 40px 0; /* Top and bottom padding */
+  margin: 30px 0; /* Margin to separate the banner from other page content */
+  text-align: center; /* Centers the text horizontally */
+}
+
+#customBanner .container {
+  max-width: 1200px; /* Sets a max-width for the content inside the banner */
+  margin: 0 auto; /* Centers the container within the banner */
+  padding: 0 15px; /* Adds some padding on the sides */
+}
+
+#customBanner h1 {
+  color: white; /* Sets the text color to white */
+  margin: 0; /* Removes the default margin from the h1 */
+  font-size: 2.5rem; /* Adjust the font size as needed */
+  font-weight: 700; /* Makes the font bold */
+}
+
+
