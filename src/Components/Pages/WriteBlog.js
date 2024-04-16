@@ -163,6 +163,21 @@ export default function WriteBlog() {
                       />
                     </div>
 
+                    <div class="col-12">
+                      <label for="description" class="visually-hidden">
+                        Description
+                      </label>
+                      <input
+                        type="text"
+                        class="form-control form-control-solid"
+                        id="description"
+                        placeholder="Description"
+                        name="description"
+                        value={blogData.description}
+                        onChange={handleChange}
+                      />
+                    </div>
+
 
 
 

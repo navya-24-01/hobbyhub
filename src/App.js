@@ -22,6 +22,7 @@ import { ConversationsProvider } from "./Context/ConversationsContext";
 import { Chat } from "./Components/Pages/Chat";
 
 import WriteBlog from "./Components/Pages/WriteBlog";
+import AllBlogs from "./Components/Pages/AllBlogs";
 
 function App() {
   return (
@@ -31,125 +32,134 @@ function App() {
 
           <ListingProvider>
             <ConversationsProvider>
-            <Routes>
-              <Route exact path="/" Component={WelcomePage} />
-              <Route exact path="/signup" Component={SignUpPage} />
-              <Route exact path="/signin" Component={SignInPage} />
-              <Route
-                path="/home"
-                element={
-                  <PrivateRoute>
-                    <HomePage />
-                  </PrivateRoute>
-                }
-              ></Route>
-              <Route
-                path="/conversations"
-                element={
-                  <PrivateRoute>
-                    <ConversationsPage />
-                  </PrivateRoute>
-                }
-              ></Route>
-              <Route
-                path="/chat/:conversationId"
-                element={
-                  <PrivateRoute>
-                    <Chat />
-                  </PrivateRoute>
-                }
-              />
-             
-              <Route
-                path="/seller-listings"
-                element={
-                  <PrivateRoute>
-                    <SellerListings />
-                  </PrivateRoute>
-                }
-              />
-              <Route
-                path="/profile"
-                element={
-                  <PrivateRoute>
-                    <ProfilePage />
-                  </PrivateRoute>
-                }
-              ></Route>
-              <Route
-                path="/listings"
-                element={
-                  <PrivateRoute>
-                    <ListingsPage />
-                  </PrivateRoute>
-                }
-              ></Route>
-              <Route
-                path="/reviews"
-                element={
-                  <PrivateRoute>
-                    <ReviewForm />
-                  </PrivateRoute>
-                }
-              ></Route>
-              <Route
-                path="/home"
-                element={
-                  <PrivateRoute>
-                    <HomePage />
-                  </PrivateRoute>
-                }
-              ></Route>
-              <Route
-                path="/createlisting"
-                element={
-                  <PrivateRoute>
-                    <CreateListingPage />
-                  </PrivateRoute>
-                }
-              ></Route>
-              <Route
-                path="/listings"
-                element={
-                  <PrivateRoute>
-                    <ListingsPage />
-                  </PrivateRoute>
-                }
-              ></Route>
-              <Route path="/listing/:listingId" element={<ListingDetails />} />{" "}
-              <Route />
-              <Route
-                path="/createlisting"
-                element={
-                  <PrivateRoute>
-                    <CreateListingPage />
-                  </PrivateRoute>
-                }
-              ></Route>
-              <Route
-                path="/listings"
-                element={
-                  <PrivateRoute>
-                    <ListingsPage />
-                  </PrivateRoute>
-                }
-              ></Route>
-              
-              <Route
-              path="/writeBlog"
-              element={
-                <PrivateRoute>
-                  < WriteBlog/>
-                </PrivateRoute>
-              }
-            ></Route>
+              <Routes>
+                <Route exact path="/" Component={WelcomePage} />
+                <Route exact path="/signup" Component={SignUpPage} />
+                <Route exact path="/signin" Component={SignInPage} />
+                <Route
+                  path="/home"
+                  element={
+                    <PrivateRoute>
+                      <HomePage />
+                    </PrivateRoute>
+                  }
+                ></Route>
+                <Route
+                  path="/conversations"
+                  element={
+                    <PrivateRoute>
+                      <ConversationsPage />
+                    </PrivateRoute>
+                  }
+                ></Route>
+                <Route
+                  path="/chat/:conversationId"
+                  element={
+                    <PrivateRoute>
+                      <Chat />
+                    </PrivateRoute>
+                  }
+                />
 
-            </Routes>
+                <Route
+                  path="/seller-listings"
+                  element={
+                    <PrivateRoute>
+                      <SellerListings />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/profile"
+                  element={
+                    <PrivateRoute>
+                      <ProfilePage />
+                    </PrivateRoute>
+                  }
+                ></Route>
+                <Route
+                  path="/listings"
+                  element={
+                    <PrivateRoute>
+                      <ListingsPage />
+                    </PrivateRoute>
+                  }
+                ></Route>
+                <Route
+                  path="/reviews"
+                  element={
+                    <PrivateRoute>
+                      <ReviewForm />
+                    </PrivateRoute>
+                  }
+                ></Route>
+                <Route
+                  path="/home"
+                  element={
+                    <PrivateRoute>
+                      <HomePage />
+                    </PrivateRoute>
+                  }
+                ></Route>
+                <Route
+                  path="/createlisting"
+                  element={
+                    <PrivateRoute>
+                      <CreateListingPage />
+                    </PrivateRoute>
+                  }
+                ></Route>
+                <Route
+                  path="/listings"
+                  element={
+                    <PrivateRoute>
+                      <ListingsPage />
+                    </PrivateRoute>
+                  }
+                ></Route>
+                <Route path="/listing/:listingId" element={<ListingDetails />} />{" "}
+                <Route />
+                <Route
+                  path="/createlisting"
+                  element={
+                    <PrivateRoute>
+                      <CreateListingPage />
+                    </PrivateRoute>
+                  }
+                ></Route>
+                <Route
+                  path="/listings"
+                  element={
+                    <PrivateRoute>
+                      <ListingsPage />
+                    </PrivateRoute>
+                  }
+                ></Route>
+
+                <Route
+                  path="/writeBlog"
+                  element={
+                    <PrivateRoute>
+                      < WriteBlog />
+                    </PrivateRoute>
+                  }
+                ></Route>
+
+                <Route
+                  path="/allBlogs"
+                  element={
+                    <PrivateRoute>
+                      < AllBlogs />
+                    </PrivateRoute>
+                  }
+                ></Route>
+
+              </Routes>
             </ConversationsProvider>
           </ListingProvider>
-          
 
-           
+
+
 
         </ProfileProvider>
       </AuthorizationProvider>
