@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
 import { db } from "../../Config/firebase";
-import { collection, getDocs,query, where  } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import "./styles.css";
 import { useAuth } from "../../Context/AuthorizationContext";
 
@@ -10,34 +10,34 @@ import { useAuth } from "../../Context/AuthorizationContext";
 export default function AllBlogs() {
 
     const [blogs, setBlogs] = useState([]);
-  const { currentUser } = useAuth();
+    const { currentUser } = useAuth();
 
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      if (!currentUser) {
-        console.error("No current user found. Make sure the user is logged in and try again.");
-        return;
-      }
+    useEffect(() => {
+        const fetchBlogs = async () => {
+            if (!currentUser) {
+                console.error("No current user found. Make sure the user is logged in and try again.");
+                return;
+            }
 
-      const userPropertyId = currentUser.uid || currentUser.userid;
+            const userPropertyId = currentUser.uid || currentUser.userid;
 
-      const blogsCollection = collection(db, "blog");
-      const q = query(blogsCollection, where("userId", "!=", userPropertyId));
+            const blogsCollection = collection(db, "blog");
+            const q = query(blogsCollection, where("userId", "!=", userPropertyId));
 
-      const blogsSnapshot = await getDocs(q);
-      const blogsList = blogsSnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
+            const blogsSnapshot = await getDocs(q);
+            const blogsList = blogsSnapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data(),
+            }));
 
-      setBlogs(blogsList.filter(blog => blog.userId !== userPropertyId));
-    };
+            setBlogs(blogsList.filter(blog => blog.userId !== userPropertyId));
+        };
 
-    fetchBlogs();
-  }, [currentUser]); 
+        fetchBlogs();
+    }, [currentUser]);
 
 
-   
+
 
     return (
         <div id="layoutDefault">

@@ -4,6 +4,9 @@ import { getFirestore, collection, addDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import Navbar from "./Navbar";
 import blogBackground from '../assets/img/backgrounds/blogpic.png';
+import { useNavigate } from 'react-router-dom';
+
+
 
 
 export default function WriteBlog() {
@@ -15,6 +18,9 @@ export default function WriteBlog() {
   });
   const [blogPhoto, setBlogPhoto] = useState(null);
   const [photoPreviewUrl, setPhotoPreviewUrl] = useState(null);
+  const navigate = useNavigate();
+
+
 
 
 
@@ -54,6 +60,7 @@ export default function WriteBlog() {
         // Get the download URL and update the blog data to include the photo URL
         const downloadURL = await getDownloadURL(snapshot.ref);
         blogDataToSave.blogPhoto = downloadURL;
+        
       } catch (error) {
         console.error("Failed to upload photo:", error);
         return;
@@ -69,11 +76,11 @@ export default function WriteBlog() {
       // Reset the blog form state here
       setBlogData({ title: "", content: "", userId: currentUser.uid });
       setPhotoPreviewUrl(null);
+      navigate('/allBlogs'); 
     } catch (error) {
       console.error("Failed to save blog data:", error);
     }
   };
-
 
 
 
@@ -121,6 +128,7 @@ export default function WriteBlog() {
 
               <div class="row gx-5 justify-content-center">
                 <div class="col-xl-6 col-lg-8 text-center">
+
                   <form
                     class="row g-3 align-items-center mb-3 justify-content-center"
                     onSubmit={handleSubmit}
@@ -130,7 +138,7 @@ export default function WriteBlog() {
                     </div>
 
                     <div class="col-12">
-                    
+
                       <input
                         type="file"
                         class="form-control form-control-solid"
@@ -160,6 +168,7 @@ export default function WriteBlog() {
                         name="title"
                         value={blogData.title}
                         onChange={handleChange}
+                        required
                       />
                     </div>
 
@@ -175,6 +184,7 @@ export default function WriteBlog() {
                         name="description"
                         value={blogData.description}
                         onChange={handleChange}
+                        required
                       />
                     </div>
 
@@ -194,15 +204,22 @@ export default function WriteBlog() {
                         value={blogData.content}
                         onChange={handleChange}
                         rows="30"
+                        required
                       ></textarea>
                     </div>
 
+                    
                     <div class="col-12">
-                      <button class="btn btn-teal fw-500 w-100" type="submit">
-                        Post
-                      </button>
+                    <button
+                      class="btn btn-teal fw-500 w-100"
+                      type="submit"
+                    >
+                      Post
+                    </button>
+
                     </div>
                   </form>
+                  
                 </div>
               </div>
             </div>

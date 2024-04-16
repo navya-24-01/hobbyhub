@@ -154,10 +154,10 @@ function App() {
                     </PrivateRoute>
                   }
                 ></Route>
-                <Route path="/blog/:id" element={<PrivateRoute><BlogContents /></PrivateRoute>} />
+                <Route path="/blog/:id" 
+                 element={<BlogContents />} />{" "}
 
 
-             
 
               </Routes>
             </ConversationsProvider>
