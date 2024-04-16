@@ -23,6 +23,8 @@ import { ConversationsProvider } from "./Context/ConversationsContext";
 import { Chat } from "./Components/Pages/Chat";
 
 import WriteBlog from "./Components/Pages/WriteBlog";
+import AllBlogs from "./Components/Pages/AllBlogs";
+import BlogContents from "./Components/Pages/BlogContent"
 
 function App() {
   return (
@@ -59,6 +61,7 @@ function App() {
                     </PrivateRoute>
                   }
                 />
+
                 <Route
                   path="/seller-listings"
                   element={
@@ -84,9 +87,19 @@ function App() {
                   }
                 ></Route>
                 <Route
+
                   path="/review/:renterId/:renteeUsername"
                   element={<ReviewForm />}
                 />
+<Route
+                  path="/reviews"
+                  element={
+                    <PrivateRoute>
+                      <ReviewForm />
+                    </PrivateRoute>
+                  }
+                ></Route>
+
                 <Route
                   path="/home"
                   element={
@@ -104,6 +117,7 @@ function App() {
                   }
                 ></Route>
                 <Route
+
                   path="/rentedlistings"
                   element={
                     <PrivateRoute>
@@ -112,6 +126,7 @@ function App() {
                   }
                 ></Route>
                 <Route
+
                   path="/listings"
                   element={
                     <PrivateRoute>
@@ -119,10 +134,14 @@ function App() {
                     </PrivateRoute>
                   }
                 ></Route>
+
                 <Route
                   path="/listing/:listingId"
                   element={<ListingDetails />}
                 />{" "}
+
+                <Route path="/listing/:listingId" element={<ListingDetails />} />{" "}
+
                 <Route />
                 <Route
                   path="/createlisting"
@@ -140,10 +159,12 @@ function App() {
                     </PrivateRoute>
                   }
                 ></Route>
+
                 <Route
                   path="/writeBlog"
                   element={
                     <PrivateRoute>
+
                       <WriteBlog />
                     </PrivateRoute>
                   }
@@ -151,6 +172,33 @@ function App() {
               </Routes>
             </ConversationsProvider>
           </ListingProvider>
+
+                      < WriteBlog />
+                    </PrivateRoute>
+                  
+                ></Route>
+
+                <Route
+                  path="/allBlogs"
+                  element={
+                    <PrivateRoute>
+                      < AllBlogs />
+                    </PrivateRoute>
+                  }
+                ></Route>
+                <Route path="/blog/:id" 
+                 element={<BlogContents />} />{" "}
+
+
+
+              </Routes>
+            </ConversationsProvider>
+          </ListingProvider>
+
+
+
+
+
         </ProfileProvider>
       </AuthorizationProvider>
     </Router>
