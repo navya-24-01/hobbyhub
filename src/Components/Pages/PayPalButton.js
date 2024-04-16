@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { setDoc, doc, updateDoc, arrayUnion } from "firebase/firestore"; // Import Firestore methods
+import { addDoc,collection,setDoc, doc, updateDoc, arrayUnion } from "firebase/firestore"; // Import Firestore methods
 import { useAuth } from "../../Context/AuthorizationContext";
 import { db } from "../../Config/firebase";
 import { CLIENT_ID } from '../../Config/config'; // Ensure this path is correct
 
 
-const PayPalButton = ({ description, amount, listingId, startDate, endDate, totalHours}) => {
+const PayPalButton = ({ description, amount, listingId, startDate, endDate, totalHours,sellerId}) => {
     const [success, setSuccess] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [orderID, setOrderID] = useState("");
     const { currentUser } = useAuth();
+
+    console.log("Can u see ne + " + startDate);
 
 
     // Creates a PayPal order
@@ -79,6 +81,7 @@ const PayPalButton = ({ description, amount, listingId, startDate, endDate, tota
                     throw new Error("User not found.");
                 }
 
+               
                 setSuccess(true);
             } catch (error) {
                 console.error("Error saving payment record: ", error);
@@ -96,7 +99,7 @@ const PayPalButton = ({ description, amount, listingId, startDate, endDate, tota
         if (success) {
             alert("Payment successful!!");
 
-            console.log('Order successful. Your order id is:', orderID);
+            //console.log('Order successful. Your order id is:', orderID);
 
         }
     }, [success]);

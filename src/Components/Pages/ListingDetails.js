@@ -161,9 +161,10 @@ function ListingDetails() {
                     description={listing.title}
                     amount={totalAmount}
                     listingId={listingId} // the ID of the listing
-                    startDateTime={startDate} // start date and time
-                    endDateTime={endDate} // end date and time
+                    startDate={startDate} // start date and time
+                    endDate={endDate} // end date and time
                     totalHours={Math.abs(new Date(endDate) - new Date(startDate)) / 36e5} // calculated total hours
+                    sellerId={listing.seller}
                   />
                 )}
 
