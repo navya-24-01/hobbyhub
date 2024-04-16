@@ -82,7 +82,7 @@ export default function WriteBlog() {
     }
   };
 
-<<<<<<< Updated upstream
+
 
 
 
@@ -227,77 +227,16 @@ export default function WriteBlog() {
           </div>
 
 
-=======
+
  
-  return (
-    <div className="layout-default">
-      <div className="layout-default-content">
-        <main>
-          <header className="page-header-ui page-header-ui-dark">
-            {/* Removed gradient for a solid color for a more modern, clean look */}
-            <div className="page-header-ui-content bg-dark text-white">
-              <div className="container py-5">
-                {/* Simplified container padding and increased vertical padding for better focus */}
-                <div className="row justify-content-center">
-                  <div className="col-md-10 col-lg-8 text-center">
-                    {/* Adjusted column sizing for better responsiveness */}
-                    <h1 className="page-header-ui-title display-4 fw-bold mb-3">
-                      Share Your Thoughts
-                    </h1>
-                    <p className="lead mb-4">
-                      
-                    </p>
-                    {/* Added lead paragraph for context */}
-                  </div>
-                </div>
   
-                <div className="row justify-content-center">
-                  <div className="col-md-8">
-                    <form className="mb-3" onSubmit={handleSubmit}>
-                      <div className="mb-4">
-                        {/* Increased margin bottom for better spacing */}
-                        <input
-                          type="text"
-                          className="form-control form-control-lg"
-                          id="title"
-                          placeholder="Enter your blog title"
-                          name="title"
-                          value={blogData.title}
-                          onChange={handleChange}
-                        />
-                      </div>
-                      
-                      <div className="mb-4">
-                        <textarea
-                          className="form-control form-control-lg"
-                          id="content"
-                          placeholder="What's on your mind?"
-                          name="content"
-                          value={blogData.content}
-                          onChange={handleChange}
-                          rows="10" // Adjusted number of rows for a more compact look
-                          style={{ resize: "none" }} // Disabled resize handle for cleaner look
-                        ></textarea>
-                      </div>
-  
-                      <button className="btn btn-primary btn-lg w-100" type="submit">
-                        Publish Post
-                      </button>
-                      {/* Changed button class for a primary color */}
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </header>
->>>>>>> Stashed changes
         </main>
       </div>
     </div>
   );
-<<<<<<< Updated upstream
+
 }
-=======
+
   
-}
->>>>>>> Stashed changes
+
+
