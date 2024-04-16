@@ -23,6 +23,7 @@ import { Chat } from "./Components/Pages/Chat";
 
 import WriteBlog from "./Components/Pages/WriteBlog";
 import AllBlogs from "./Components/Pages/AllBlogs";
+import BlogContents from "./Components/Pages/BlogContent"
 
 function App() {
   return (
@@ -153,6 +154,10 @@ function App() {
                     </PrivateRoute>
                   }
                 ></Route>
+                <Route path="/blog/:id" element={<PrivateRoute><BlogContents /></PrivateRoute>} />
+
+
+             
 
               </Routes>
             </ConversationsProvider>
