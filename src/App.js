@@ -61,7 +61,6 @@ function App() {
                     </PrivateRoute>
                   }
                 />
-
                 <Route
                   path="/seller-listings"
                   element={
@@ -87,19 +86,9 @@ function App() {
                   }
                 ></Route>
                 <Route
-
                   path="/review/:renterId/:renteeUsername"
                   element={<ReviewForm />}
                 />
-<Route
-                  path="/reviews"
-                  element={
-                    <PrivateRoute>
-                      <ReviewForm />
-                    </PrivateRoute>
-                  }
-                ></Route>
-
                 <Route
                   path="/home"
                   element={
@@ -117,7 +106,6 @@ function App() {
                   }
                 ></Route>
                 <Route
-
                   path="/rentedlistings"
                   element={
                     <PrivateRoute>
@@ -126,7 +114,6 @@ function App() {
                   }
                 ></Route>
                 <Route
-
                   path="/listings"
                   element={
                     <PrivateRoute>
@@ -134,14 +121,10 @@ function App() {
                     </PrivateRoute>
                   }
                 ></Route>
-
                 <Route
                   path="/listing/:listingId"
                   element={<ListingDetails />}
                 />{" "}
-
-                <Route path="/listing/:listingId" element={<ListingDetails />} />{" "}
-
                 <Route />
                 <Route
                   path="/createlisting"
@@ -159,23 +142,15 @@ function App() {
                     </PrivateRoute>
                   }
                 ></Route>
+             
 
                 <Route
                   path="/writeBlog"
                   element={
                     <PrivateRoute>
-
-                      <WriteBlog />
-                    </PrivateRoute>
-                  }
-                ></Route>
-              </Routes>
-            </ConversationsProvider>
-          </ListingProvider>
-
                       < WriteBlog />
                     </PrivateRoute>
-                  
+                  }
                 ></Route>
 
                 <Route
@@ -186,19 +161,20 @@ function App() {
                     </PrivateRoute>
                   }
                 ></Route>
-                <Route path="/blog/:id" 
-                 element={<BlogContents />} />{" "}
+                <Route path="/blog/:id"
+                  element={<BlogContents />} />{" "}
+
+
+
+
+
+
 
 
 
               </Routes>
             </ConversationsProvider>
           </ListingProvider>
-
-
-
-
-
         </ProfileProvider>
       </AuthorizationProvider>
     </Router>
