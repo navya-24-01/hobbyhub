@@ -92,13 +92,7 @@ function Navbar() {
                       </div>
                       <div class="col-lg-6">
                         <h6 class="dropdown-header text-primary">Blogs</h6>
-
                         <a class="dropdown-item" href="./exploreBlogs">
-
-
-                        <a class="dropdown-item"
-                          href="./allBlogs">
-
                           Explore Blogs
                         </a>
                         <a class="dropdown-item" href="./MyBlog">
