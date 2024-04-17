@@ -182,7 +182,7 @@ function Navbar() {
                       Customer Service
                     </h6>
                     <a class="dropdown-item" href="/complaint">
-                      Make A Complaint
+                      Make A Complain
                     </a>
                   </div>
                 </div>
