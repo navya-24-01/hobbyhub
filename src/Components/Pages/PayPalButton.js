@@ -80,6 +80,15 @@ const PayPalButton = ({ description, amount, listingId, startDate, endDate, tota
                     paymentsMade: arrayUnion(paymentToken),
                 });
 
+                if (sellerId) {
+                    // Update the seller's document with the new payment transaction
+                    const sellerRef = doc(db, "user", sellerId);
+                    await updateDoc(sellerRef, {
+                        paymentsReceived: arrayUnion(paymentDetails.paymentToken),
+                    });
+                    console.log("Seller record updated successfully with payment transaction");
+                }
+
                 // Define renting details using the paymentToken as the paymentId.
                 const rentingDetails = {
                     listingId,
