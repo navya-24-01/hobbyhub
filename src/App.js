@@ -21,6 +21,7 @@ import RentedItems from "./Components/Pages/RentedItems";
 import { ConversationsProvider } from "./Context/ConversationsContext";
 // fh
 import { Chat } from "./Components/Pages/Chat";
+import ComplaintPage from "./Components/Pages/ComplaintPage";
 
 import WriteBlog from "./Components/Pages/WriteBlog";
 import AllBlogs from "./Components/Pages/AllBlogs";
@@ -159,6 +160,14 @@ function App() {
                   }
                 ></Route>
                 <Route path="/blog/:id" element={<BlogContents />} />{" "}
+                <Route
+                  path="/complaint"
+                  element={
+                    <PrivateRoute>
+                      <ComplaintPage />
+                    </PrivateRoute>
+                  }
+                />
               </Routes>
             </ConversationsProvider>
           </ListingProvider>
