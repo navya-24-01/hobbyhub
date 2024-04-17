@@ -2,20 +2,24 @@ import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
 import { db } from "../../Config/firebase";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where, deleteDoc, doc } from "firebase/firestore";
 import "./styles.css";
 import { useAuth } from "../../Context/AuthorizationContext";
+import { useNavigate } from "react-router-dom";
+
 
 
 export default function MyBlog() {
-
     const [blogs, setBlogs] = useState([]);
     const { currentUser } = useAuth();
+    const navigate = useNavigate();
+
+
 
     useEffect(() => {
         const fetchBlogs = async () => {
             if (!currentUser) {
-                console.error("No current blog. Make sure the user is logged in and try again.");
+                console.error("No current user. Make sure the user is logged in and try again.");
                 return;
             }
 
@@ -30,14 +34,22 @@ export default function MyBlog() {
                 ...doc.data(),
             }));
 
-            setBlogs(blogsList.filter(blog => blog.userId == userPropertyId));
+            setBlogs(blogsList.filter(blog => blog.userId === userPropertyId));
         };
 
         fetchBlogs();
     }, [currentUser]);
 
-
-
+    const handleDeleteBlog = async (blogId) => {
+        try {
+            await deleteDoc(doc(db, "blog", blogId));
+            setBlogs(blogs.filter(blog => blog.id !== blogId));
+            navigate("/myBlog"); // Navigate back to MyBlog page
+        } catch (error) {
+            console.error("Error deleting blog:", error);
+        }
+    };
+    
 
     return (
         <div id="layoutDefault">
@@ -67,6 +79,14 @@ export default function MyBlog() {
                                                     <div className="card-body">
                                                         <h5 className="card-title">{blog.title}</h5>
                                                         <p className="card-text">{blog.description || "No summary available."}</p>
+                                                        <button
+                                                            onClick={() => handleDeleteBlog(blog.id)}
+                                                            className="btn btn-danger mx-auto d-block" // Added classes to center the button and make it blue
+                                                            style={{ backgroundColor: "blue" }} // Added inline style to make the button blue
+                                                        >
+                                                            Delete Blog
+                                                        </button>
+
                                                     </div>
                                                 </div>
                                             </Link>
