@@ -142,13 +142,22 @@ function App() {
                     </PrivateRoute>
                   }
                 ></Route>
-             
+
 
                 <Route
                   path="/writeBlog"
                   element={
                     <PrivateRoute>
                       < WriteBlog />
+                    </PrivateRoute>
+                  }
+                ></Route>
+
+                <Route
+                  path="/reviews"
+                  element={
+                    <PrivateRoute>
+                      < ReviewForm />
                     </PrivateRoute>
                   }
                 ></Route>
