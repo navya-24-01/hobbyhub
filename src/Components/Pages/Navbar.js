@@ -203,6 +203,8 @@ function Navbar() {
                 </div>
               </div>
             </li>
+
+
             <li class="nav-item dropdown no-caret">
               <a
                 class="nav-link dropdown-toggle"
@@ -216,35 +218,23 @@ function Navbar() {
                 My Profile
                 <i class="fas fa-chevron-right dropdown-arrow"></i>
               </a>
+
               <div
                 class="dropdown-menu dropdown-menu-end animated--fade-in-up"
                 aria-labelledby="navbarDropdownDocs"
               >
-                <a
-                  class="dropdown-item py-3"
-                  href="https://docs.startbootstrap.com/sb-ui-kit-pro/quickstart"
-                  target="_blank"
-                >
-                  <div class="icon-stack bg-primary-soft text-primary me-4">
-                    <i data-feather="book-open"></i>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">Edit My Profile</div>
-                  </div>
+                
+                <a class="dropdown-item" href="./profile">
+                  Edit My Profile
                 </a>
+
                 <div class="dropdown-divider m-0"></div>
-                <a
-                  class="dropdown-item py-3"
-                  href="https://docs.startbootstrap.com/sb-ui-kit-pro/components"
-                  target="_blank"
-                >
-                  <div class="icon-stack bg-primary-soft text-primary me-4">
-                    <i data-feather="code"></i>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">Logout</div>
-                  </div>
+
+
+                <a class="dropdown-item" href="./signin">
+                  Logout
                 </a>
+
               </div>
             </li>
           </ul>
