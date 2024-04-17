@@ -95,7 +95,7 @@ function Navbar() {
                         <a class="dropdown-item" href="./allBlogs">
                           Explore Blogs
                         </a>
-                        <a class="dropdown-item" href="./MyBlog">
+                        <a class="dropdown-item" href="./myBlog">
                           My Blogs
                         </a>
                         <a class="dropdown-item" href="./writeBlog">

@@ -74,7 +74,7 @@ export default function BlogContents() {
                                             {/* Add author's profile picture if available */}
                                             <img className="single-post-meta-img" src={blogBackground} alt="Blog Background" />
                                             <div className="single-post-meta-details"  >
-                                                <div className="single-post-meta-details-name" style={{ fontSize: '1.2em' }}>author{author}</div>
+                                                <div className="single-post-meta-details-name" style={{ fontSize: '1.2em' }}>{author}</div>
                                                 <div className="single-post-meta-details-date" style={{ fontSize: '1.0em' }}>{formattedDate} &middot; {readTime} min read</div>
                                             </div>
                                         </div>
