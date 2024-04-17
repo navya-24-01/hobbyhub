@@ -14,7 +14,10 @@ function UserPayments() {
 
   useEffect(() => {
     const fetchUserPayments = async () => {
-      if (!currentUser) return;
+      if (!currentUser) {
+        console.log("No current user, aborting fetch");
+        return;
+      }
 
       const userRef = doc(db, "user", currentUser.uid);
       const userSnap = await getDoc(userRef);
@@ -41,15 +44,17 @@ function UserPayments() {
                 listingDetails: listingData,
               });
             } else {
-              // In case listing is not found, still push payment info
+              console.log(`Listing data for payment ID ${paymentID} not found`);
               paymentsData.push({ id: paymentSnap.id, ...paymentData });
             }
+          } else {
+            console.log(`Payment data for ID ${paymentID} not found`);
           }
         }
 
         setPayments(paymentsData);
       } else {
-        console.log("No such user document!");
+        console.log("User document does not exist!");
       }
     };
 
@@ -57,8 +62,14 @@ function UserPayments() {
   }, [currentUser]);
 
   const handleReviewClick = (payment) => {
-    setCurrentPayment(payment); // Set the current payment for review
-    setShowReviewForm(true); // Show the review form
+    console.log("Review button clicked", payment);
+    if (payment && payment.listingDetails) {
+      console.log("Review button clicked", payment);
+      setCurrentPayment(payment); // Set the current payment for review
+      setShowReviewForm(true); // Show the review form
+    } else {
+      console.error("Error: Listing details missing for this payment", payment);
+    }
   };
 
   return (
@@ -74,7 +85,6 @@ function UserPayments() {
               </p>
             </div>
           </header>
-
           <section className="bg-white py-10">
             <div className="container px-5">
               <h2 className="text-center mb-5">Payment Details</h2>
@@ -93,13 +103,22 @@ function UserPayments() {
                           >
                             Review
                           </button>
+                          {showReviewForm && currentPayment && (
+                            <ReviewForm
+                              renterId={currentPayment.listingDetails.seller}
+                              renteeId={currentUser.uid} // Assuming id is part of currentUser
+                              onClose={() => setShowReviewForm(false)}
+                            />
+                          )}
                           <p>
                             <strong>Amount:</strong> {payment.amount}{" "}
                             {payment.currency}
                           </p>
                           <p>
-                            <strong>Date:</strong>{" "}
-                            {payment.createdAt?.toDate().toLocaleString()}
+                            <strong>Start Date:</strong> {payment.startDateTime}
+                          </p>
+                          <p>
+                            <strong>End Date:</strong> {payment.endDateTime}
                           </p>
                           <p>
                             <strong>Description:</strong> {payment.description}
@@ -150,13 +169,10 @@ function UserPayments() {
               </div>
             </div>
           </section>
-
-          {showReviewForm && currentPayment && (
-            <ReviewForm
-              onSubmit={() => setShowReviewForm(false)} // Hide the form on submit
-              renterId={currentPayment.listingDetails.seller}
-              renteeUsername={currentUser.username} // Assuming username is part of currentUser
-            />
+          {console.log(
+            "Should show ReviewForm:",
+            showReviewForm,
+            currentPayment
           )}
 
           <div id="layoutDefault_footer"></div>

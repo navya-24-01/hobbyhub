@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import './styles.css'; // Import your custom styles
-import { Link } from 'react-router-dom';
-import { db } from '../../Config/firebase';
+import React, { useState } from "react";
+import "./styles.css"; // Make sure your styles are correctly imported
+import { Link } from "react-router-dom";
+import { db } from "../../Config/firebase";
+import { collection, addDoc } from "firebase/firestore"; // Correct imports for Firebase
 
-const ReviewForm = ({ onSubmit, renterId, renteeUsername }) => {
+const ReviewForm = ({ renterId, renteeId, onClose }) => {
   const [rating, setRating] = useState(0);
-  const [description, setDescription] = useState('');
-  const [showPopup, setShowPopup] = useState(false);
+  const [description, setDescription] = useState("");
 
   const handleStarClick = (selectedRating) => {
     setRating(selectedRating);
@@ -18,41 +18,40 @@ const ReviewForm = ({ onSubmit, renterId, renteeUsername }) => {
       rating,
       description,
       renterId,
-      renteeUsername,
-      submissionDate: new Date().toISOString()
+      renteeId,
+      submissionDate: new Date().toISOString(),
     };
     try {
-      await db.collection('reviews').add(reviewData);
-      console.log('Review submitted successfully!');
+      await addDoc(collection(db, "reviews"), reviewData); // Use addDoc to add a document
+      console.log("Review submitted successfully!");
+      // Reset form and close it
       setRating(0);
-      setDescription('');
-      setShowPopup(true);
-      if (onSubmit) {
-        onSubmit();
-      }
+      setDescription("");
+      if (onClose) onClose(); // Use onClose prop to close the form
     } catch (error) {
-      console.error('Error submitting review:', error);
+      console.error("Error submitting review:", error);
     }
   };
-  
 
   return (
-    <section class="bg-light pt-15 pb-10">
-      <div class="container px-5">
-        <div class="row gx-5">
-          <div class="col-lg-8 col-xl-9">
-            <div class="d-flex align-items-center justify-content-between flex-column flex-md-row">
-              <h2 class="mb-0">Submit a Review for {renterId}</h2>
+    <section className="bg-light pt-15 pb-10">
+      <div className="container px-5">
+        <div className="row gx-5">
+          <div className="col-lg-8 col-xl-9">
+            <div className="d-flex align-items-center justify-content-between flex-column flex-md-row">
+              <h2 className="mb-0">Submit a Review for {renterId}</h2>
             </div>
             <form onSubmit={handleSubmit} className="card mb-5">
-              <div class="card-body">
+              <div className="card-body">
                 <div className="rating">
                   <label htmlFor="description">Rating:</label>
                   <br />
                   {[...Array(5)].map((_, index) => (
                     <span
                       key={index}
-                      className={`star ${index + 1 <= rating ? 'active' : 'inactive'}`}
+                      className={`star ${
+                        index + 1 <= rating ? "active" : "inactive"
+                      }`}
                       onClick={() => handleStarClick(index + 1)}
                     >
                       ★
@@ -76,35 +75,22 @@ const ReviewForm = ({ onSubmit, renterId, renteeUsername }) => {
                   <Link to="/" className="btn btn-light me-2">
                     Back to HomePage
                   </Link>
-                  <button type="submit" className="btn btn-primary">Submit Review</button>
+                  <button type="submit" className="btn btn-primary">
+                    Submit Review
+                  </button>
                 </div>
               </div>
             </form>
-            {showPopup && (
-              <div className="popup">
-                <p>Review submitted successfully!</p><br/>
-                <Link to="/">Back to HomePage</Link><br /><br />
-                <button onClick={() => setShowPopup(false)} className="btn btn-secondary">Close</button>
-              </div>
-            )}
+            {/* Optional: If you wish to include a cancel button on the form itself */}
+            <button onClick={onClose} className="btn btn-secondary">
+              Cancel
+            </button>
           </div>
         </div>
       </div>
-      <div class="svg-border-rounded text-dark">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 144.54 17.34" preserveAspectRatio="none" fill="currentColor"><path d="M144.54,17.34H0V0H144.54ZM0,0S32.36,17.34,72.27,17.34,144.54,0,144.54,0"></path></svg>
-      </div>
+      {/* SVG graphics and other page elements */}
     </section>
   );
-};
-
-const submitReview = async (reviewData) => {
-  // Simulate API call
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      // Resolve with a mock response
-      resolve({ ok: true });
-    }, 1000); // Simulating a delay of 1 second
-  });
 };
 
 export default ReviewForm;
