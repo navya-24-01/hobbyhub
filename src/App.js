@@ -151,6 +151,16 @@ function App() {
                     </PrivateRoute>
                   }
                 ></Route>
+
+                <Route
+                  path="/reviews"
+                  element={
+                    <PrivateRoute>
+                      < ReviewForm />
+                    </PrivateRoute>
+                  }
+                ></Route>
+
                 <Route
                   path="/allBlogs"
                   element={
