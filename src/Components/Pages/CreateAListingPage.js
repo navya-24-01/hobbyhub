@@ -7,11 +7,13 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
+import { useNavigate } from 'react-router-dom';
 
 export default function CreateListingPage() {
   const { createListing } = useListing();
   const [imageFile, setImageFile] = useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
+  const navigate = useNavigate();
 
   const [listingData, setListingData] = useState({
     category: "none",
@@ -59,11 +61,14 @@ export default function CreateListingPage() {
   
             await createListing(newListingData); // Save the listing data, including the image URL
             // Optionally, reset form and preview state here
-            setImagePreviewUrl(null);
-            setListingData({ category: "", description: "", hourlyrate: "", title: "", url: "" });
+            
+            navigate('/seller-listings');
+            
           });
         }
       );
+
+
     } else {
       // If no image is selected, proceed with listing creation without image URL
       await createListing(listingData);
