@@ -4,7 +4,7 @@ import { db } from '../../Config/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import Navbar from './Navbar';
 import './styles.css';
-import blogBackground from '../assets/img/backgrounds/defaultprofile.png';
+import defaultprofile from '../assets/img/backgrounds/defaultprofile.png';
 import { Timestamp } from "firebase/firestore";
 
 
@@ -15,6 +15,7 @@ export default function BlogContents() {
     const [blog, setBlog] = useState(null);
     const { id } = useParams();
     const [author, setAuthor] = useState('');
+    const [profile, setProfile] = useState('');
 
 
     useEffect(() => {
@@ -27,10 +28,11 @@ export default function BlogContents() {
                 setBlog(blogData);
 
                 // Fetch the user using the userId from the blog data
-                const userDocRef = doc(db, "users", blogData.userId);
+                const userDocRef = doc(db, "user", blogData.userId);
                 const userSnapshot = await getDoc(userDocRef);
                 if (userSnapshot.exists()) {
                     setAuthor(userSnapshot.data().username);
+                    setProfile(userSnapshot.data().profilepic);
                 } else {
                     console.error("User not found!");
                 }
@@ -72,7 +74,7 @@ export default function BlogContents() {
 
                                         <div className="single-post-meta me-4">
                                             {/* Add author's profile picture if available */}
-                                            <img className="single-post-meta-img" src={blogBackground} alt="Blog Background" />
+                                            <img className="single-post-meta-img" src={profile|| defaultprofile} alt="User Profile" />
                                             <div className="single-post-meta-details"  >
                                                 <div className="single-post-meta-details-name" style={{ fontSize: '1.2em' }}>{author}</div>
                                                 <div className="single-post-meta-details-date" style={{ fontSize: '1.0em' }}>{formattedDate} &middot; {readTime} min read</div>
