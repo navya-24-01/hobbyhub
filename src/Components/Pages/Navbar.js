@@ -63,7 +63,7 @@ function Navbar() {
                     <a class="dropdown-item" href="page-company-team.html">
                       View My Reviews
                     </a>
-                    <a class="dropdown-item" href="page-company-team.html">
+                    <a class="dropdown-item" href="/PaymentsReceived">
                       View Payments I have Received
                     </a>
                     <a class="dropdown-item" href="page-company-team.html">
