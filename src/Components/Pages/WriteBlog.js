@@ -76,7 +76,7 @@ export default function WriteBlog() {
       // Reset the blog form state here
       setBlogData({ title: "", content: "", userId: currentUser.uid });
       setPhotoPreviewUrl(null);
-      navigate('/allBlogs'); 
+      navigate('/myBlog'); 
     } catch (error) {
       console.error("Failed to save blog data:", error);
     }
