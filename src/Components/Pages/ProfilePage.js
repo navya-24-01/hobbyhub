@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAuth } from "../../Context/AuthorizationContext";
 import { useProfile } from "../../Context/ProfileContext";
+import Navbar from "./Navbar";
 import {
   getStorage,
   ref,
@@ -61,6 +62,7 @@ export default function ProfilePage() {
   
   return (
     <div id="layoutDefault">
+    <Navbar />
       <div id="layoutDefault_content">
         <main>
           <header class="page-header-ui page-header-ui-dark bg-gradient-primary-to-secondary">

@@ -19,12 +19,13 @@ import ListingDetails from "./Components/Pages/ListingDetails";
 import ConversationsPage from "./Components/Pages/Conversations";
 import RentedItems from "./Components/Pages/RentedItems";
 import { ConversationsProvider } from "./Context/ConversationsContext";
-
+// fh
 import { Chat } from "./Components/Pages/Chat";
+import ComplaintPage from "./Components/Pages/ComplaintPage";
 
 import WriteBlog from "./Components/Pages/WriteBlog";
 import AllBlogs from "./Components/Pages/AllBlogs";
-import BlogContents from "./Components/Pages/BlogContent"
+import BlogContents from "./Components/Pages/BlogContent";
 
 function App() {
   return (
@@ -142,13 +143,11 @@ function App() {
                     </PrivateRoute>
                   }
                 ></Route>
-
-
                 <Route
                   path="/writeBlog"
                   element={
                     <PrivateRoute>
-                      < WriteBlog />
+                      <WriteBlog />
                     </PrivateRoute>
                   }
                 ></Route>
@@ -166,21 +165,19 @@ function App() {
                   path="/allBlogs"
                   element={
                     <PrivateRoute>
-                      < AllBlogs />
+                      <AllBlogs />
                     </PrivateRoute>
                   }
                 ></Route>
-                <Route path="/blog/:id"
-                  element={<BlogContents />} />{" "}
-
-
-
-
-
-
-
-
-
+                <Route path="/blog/:id" element={<BlogContents />} />{" "}
+                <Route
+                  path="/complaint"
+                  element={
+                    <PrivateRoute>
+                      <ComplaintPage />
+                    </PrivateRoute>
+                  }
+                />
               </Routes>
             </ConversationsProvider>
           </ListingProvider>
