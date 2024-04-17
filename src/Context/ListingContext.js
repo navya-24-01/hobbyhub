@@ -6,7 +6,6 @@ import {
   updateDoc,
   arrayUnion,
 } from "firebase/firestore";
-
 import { db } from "../Config/firebase.js";
 import { useAuth } from "./AuthorizationContext.js"; // Import the useAuth hook
 
@@ -34,10 +33,6 @@ export function ListingProvider({ children }) {
           listingWithUserID
         ); // Make sure the collection name is correct
         const listingid = docRef.id;
-
-
-
-
 
         const userRef = doc(db, "user", currentUser.uid);
         await updateDoc(userRef, {

@@ -60,9 +60,6 @@ function Navbar() {
                     <a class="dropdown-item" href="./seller-listings">
                       View My Listings
                     </a>
-                    <a class="dropdown-item" href="./rentedlistings">
-                      View My Rented Stuff
-                    </a>
                     <a class="dropdown-item" href="page-company-team.html">
                       View My Reviews
                     </a>
@@ -76,23 +73,11 @@ function Navbar() {
                   </div>
                   <div class="col-lg-4 p-lg-5">
                     <h6 class="dropdown-header text-primary">Buyer's Market</h6>
-                    <a class="dropdown-item" href="page-help-center.html">
+                    <a class="dropdown-item" href="./rentedlistings">
                       View Stuff I have Rented
                     </a>
                     <a class="dropdown-item" href="./listings">
                       Explore Listings
-                    </a>
-                    <a
-                      class="dropdown-item"
-                      href="page-help-knowledgebase.html"
-                    >
-                      View Payments I have made
-                    </a>
-                    <a
-                      class="dropdown-item"
-                      href="page-help-message-center.html"
-                    >
-                      View Reviews I have Written
                     </a>
                     <a
                       class="dropdown-item"
@@ -107,7 +92,7 @@ function Navbar() {
                       Customer Service
                     </h6>
                     <a class="dropdown-item" href="/complaint">
-                      Make A Complaint
+                      Make A Complain
                     </a>
                   </div>
                 </div>

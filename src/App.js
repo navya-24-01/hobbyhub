@@ -26,7 +26,7 @@ import ComplaintPage from "./Components/Pages/ComplaintPage";
 import WriteBlog from "./Components/Pages/WriteBlog";
 import AllBlogs from "./Components/Pages/AllBlogs";
 import BlogContents from "./Components/Pages/BlogContent";
-import MyBlog from "./Components/Pages/MyBlog"
+import MyBlog from "./Components/Pages/MyBlog";
 
 function App() {
   return (
@@ -152,7 +152,6 @@ function App() {
                     </PrivateRoute>
                   }
                 ></Route>
-
                 <Route
                   path="/myBlog"
                   element={
@@ -161,16 +160,14 @@ function App() {
                     </PrivateRoute>
                   }
                 ></Route>
-
                 <Route
                   path="/reviews"
                   element={
                     <PrivateRoute>
-                      < ReviewForm />
+                      <ReviewForm />
                     </PrivateRoute>
                   }
                 ></Route>
-
                 <Route
                   path="/allBlogs"
                   element={

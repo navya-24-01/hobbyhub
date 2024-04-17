@@ -4,23 +4,20 @@ import { db } from "../../Config/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import Navbar from "./Navbar";
 import "./styles.css";
-import PayPalButton from './PayPalButton';
+import PayPalButton from "./PayPalButton";
 import { useAuth } from "../../Context/AuthorizationContext";
 import { useConversations } from "../../Context/ConversationsContext";
-
 
 function ListingDetails() {
   const { listingId } = useParams();
   const [listing, setListing] = useState(null);
   const [showPayPal, setShowPayPal] = useState(false);
   const [totalAmount, setTotalAmount] = useState(0);
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const {currentUser} = useAuth();
-  const{createConversation} = useConversations();
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const { currentUser } = useAuth();
+  const { createConversation } = useConversations();
   const navigate = useNavigate();
-  
-
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -39,11 +36,9 @@ function ListingDetails() {
 
   function ListingDetails() {
     // Other state and useEffect hooks
-  
+
     const navigate = useNavigate(); // Get the navigate function
-  
-   
-  
+
     // Your component JSX
   }
   const handleChatNowClick = async () => {
@@ -52,8 +47,8 @@ function ListingDetails() {
       alert("Please log in to chat with the seller.");
       return;
     }
-    console.log(currentUser.uid)
-    console.log(listing.seller)
+    console.log(currentUser.uid);
+    console.log(listing.seller);
     // Your existing logic to create a conversation...
     const conversationId = await createConversation({
       user1Id: currentUser.uid,
@@ -98,7 +93,6 @@ function ListingDetails() {
     }
   };
 
-
   return (
     <div>
       <Navbar />
@@ -132,28 +126,35 @@ function ListingDetails() {
                 <strong>Seller:</strong> {listing.sellerName}
               </p>
               <p>
-                <strong>Rental Period:</strong>
+                <strong>
+                  Rental Period (Rental Period must be in intervals of hours):
+                </strong>
               </p>
               <div className="date-selection">
                 <input
                   type="datetime-local"
                   value={startDate}
-                  onChange={e => setStartDate(e.target.value)}
+                  onChange={(e) => setStartDate(e.target.value)}
                 />
                 <input
                   type="datetime-local"
                   value={endDate}
-                  onChange={e => setEndDate(e.target.value)}
+                  onChange={(e) => setEndDate(e.target.value)}
                 />
               </div>
 
               <div className="listing-actions">
+                <button
+                  onClick={handleChatNowClick}
+                  className="btn primary-action"
+                >
+                  Chat Now with Seller
+                </button>
 
-              <button onClick={handleChatNowClick} className="btn primary-action">
-                Chat Now with Seller
-              </button>
-
-                <button onClick={handlePayNowClick} className="btn secondary-action">
+                <button
+                  onClick={handlePayNowClick}
+                  className="btn secondary-action"
+                >
                   Pay Now
                 </button>
                 {showPayPal && (
@@ -163,11 +164,12 @@ function ListingDetails() {
                     listingId={listingId} // the ID of the listing
                     startDate={startDate} // start date and time
                     endDate={endDate} // end date and time
-                    totalHours={Math.abs(new Date(endDate) - new Date(startDate)) / 36e5} // calculated total hours
+                    totalHours={
+                      Math.abs(new Date(endDate) - new Date(startDate)) / 36e5
+                    } // calculated total hours
                     sellerId={listing.seller}
                   />
                 )}
-
               </div>
             </div>
           </div>
