@@ -8,11 +8,13 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
+import { useNavigate } from 'react-router-dom';
 
 export default function ProfilePage() {
   const { setUser, checkUserExists } = useProfile();
   const [imageFile, setImageFile] = useState(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState(null);
+  const navigate = useNavigate();
 
   const [profileData, setProfileData] = useState({
     username: '',
@@ -52,6 +54,7 @@ export default function ProfilePage() {
           await setUser(newProfileData); // Adjust this method according to your actual implementation
           setImagePreviewUrl(null);
           setProfileData({ username: '', profilepic: '' }); // Reset form to initial state
+          navigate('/home');
         }
       );
     } else {

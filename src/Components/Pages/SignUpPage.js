@@ -1,13 +1,18 @@
 import { useAuth } from '../../Context/AuthorizationContext';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function SignUpPage() {
     const { signup, signupError } = useAuth();
+    const [username, setUsername] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        // Assuming your signup function expects email and password as arguments
         await signup(data.get('email'), data.get('password'));
+        navigate('/profile', { state: { useremail: data.get('email'), password:data.get('password') } });
+
     };
 
     return (
@@ -30,6 +35,9 @@ export default function SignUpPage() {
                                 <div className="row gx-5 justify-content-center">
                                     <div className="col-xl-6 col-lg-8 text-center">
                                         <form className="row g-3 align-items-center mb-3 justify-content-center" onSubmit={handleSubmit}>
+
+                                      
+
                                             <div className="col-8">
                                                 <label htmlFor="email" className="visually-hidden">Enter your email</label>
                                                 <input type="email" className="form-control form-control-solid" id="email" placeholder="Enter your email..." name="email" required />
