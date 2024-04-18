@@ -28,6 +28,7 @@ import AllBlogs from "./Components/Pages/AllBlogs";
 import BlogContents from "./Components/Pages/BlogContent";
 import MyBlog from "./Components/Pages/MyBlog";
 import ReviewsReceived from "./Components/Pages/ReviewsReceived";
+import PaymentsRecived from "./Components/Pages/PaymentsReceieved";
 
 function App() {
   return (
@@ -191,6 +192,14 @@ function App() {
                   element={
                     <PrivateRoute>
                       <ComplaintPage />
+                    </PrivateRoute>
+                  }
+                />
+                <Route
+                  path="/PaymentsReceived"
+                  element={
+                    <PrivateRoute>
+                      <PaymentsRecived />
                     </PrivateRoute>
                   }
                 />

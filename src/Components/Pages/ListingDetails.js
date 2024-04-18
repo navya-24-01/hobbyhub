@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { db } from "../../Config/firebase";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, addDoc, deleteDoc, collection, query, where, getDocs } from "firebase/firestore";
 import Navbar from "./Navbar";
 import "./styles.css";
 import PayPalButton from "./PayPalButton";
@@ -18,6 +18,8 @@ function ListingDetails() {
   const { currentUser } = useAuth();
   const { createConversation } = useConversations();
   const navigate = useNavigate();
+  const [deleting, setDeleting] = useState(false);
+
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -93,6 +95,45 @@ function ListingDetails() {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      setDeleting(true);
+      // Check if the current user is the creator of the event
+      if (listing && listing.seller === currentUser.uid) {
+
+        const paymentsQuery = query(collection(db, 'payments'), where('listingId', '==', listingId));
+        const reviewsQuery = query(collection(db, 'reviews'), where('listingId', '==', listingId));
+
+        const [paymentsSnapshot, reviewsSnapshot] = await Promise.all([
+          getDocs(paymentsQuery),
+          getDocs(reviewsQuery)
+        ]);
+
+        // Log information about payments and reviews
+        paymentsSnapshot.forEach((doc) => {
+          console.log('Payment ID:', doc.id);
+          console.log('Payment Data:', doc.data());
+        });
+
+        reviewsSnapshot.forEach((doc) => {
+          console.log('Review ID:', doc.id);
+          console.log('Review Data:', doc.data());
+        });
+
+        //this is the impt part the two lines below
+        await deleteDoc(doc(db, "listings", listingId));
+        navigate("/listings");
+      } else {
+        // If the current user is not the creator, display an error message or prevent deletion
+        console.error("You are not authorized to delete this event.");
+      }
+    } catch (error) {
+      console.error("Error deleting event:", error);
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   return (
     <div>
       <Navbar />
@@ -150,6 +191,15 @@ function ListingDetails() {
                 >
                   Chat Now with Seller
                 </button>
+
+
+
+                {currentUser && currentUser.uid === listing.seller && (
+                  <button className="btn btn-danger" onClick={handleDelete} disabled={deleting}>
+                    {deleting ? "Deleting..." : "Delete Event"}
+                  </button>
+                )}
+
 
                 <button
                   onClick={handlePayNowClick}
