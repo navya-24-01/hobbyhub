@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { db } from "../../Config/firebase";
 import { collection, addDoc } from "firebase/firestore"; // Correct imports for Firebase
 
-const ReviewForm = ({ renterId, renteeId, onClose }) => {
+const ReviewForm = ({ listingId, renterId, renteeId, onClose }) => {
   const [rating, setRating] = useState(0);
   const [description, setDescription] = useState("");
 
@@ -20,6 +20,7 @@ const ReviewForm = ({ renterId, renteeId, onClose }) => {
       renterId,
       renteeId,
       submissionDate: new Date().toISOString(),
+      listingId,
     };
     try {
       await addDoc(collection(db, "reviews"), reviewData); // Use addDoc to add a document

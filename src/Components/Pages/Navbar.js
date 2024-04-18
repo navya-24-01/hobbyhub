@@ -150,7 +150,7 @@ function Navbar() {
                     <a class="dropdown-item" href="./seller-listings">
                       View My Listings
                     </a>
-                    <a class="dropdown-item" href="page-company-team.html">
+                    <a class="dropdown-item" href="/reviewsreceived">
                       View My Reviews
                     </a>
                     <a class="dropdown-item" href="page-company-team.html">
@@ -189,7 +189,6 @@ function Navbar() {
               </div>
             </li>
 
-
             <li class="nav-item dropdown no-caret">
               <a
                 class="nav-link dropdown-toggle"
@@ -208,18 +207,15 @@ function Navbar() {
                 class="dropdown-menu dropdown-menu-end animated--fade-in-up"
                 aria-labelledby="navbarDropdownDocs"
               >
-                
                 <a class="dropdown-item" href="./profile">
                   Edit My Profile
                 </a>
 
                 <div class="dropdown-divider m-0"></div>
 
-
                 <a class="dropdown-item" href="./signin">
                   Logout
                 </a>
-
               </div>
             </li>
           </ul>

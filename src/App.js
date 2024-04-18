@@ -27,6 +27,7 @@ import WriteBlog from "./Components/Pages/WriteBlog";
 import AllBlogs from "./Components/Pages/AllBlogs";
 import BlogContents from "./Components/Pages/BlogContent";
 import MyBlog from "./Components/Pages/MyBlog";
+import ReviewsReceived from "./Components/Pages/ReviewsReceived";
 
 function App() {
   return (
@@ -112,6 +113,14 @@ function App() {
                   element={
                     <PrivateRoute>
                       <RentedItems />
+                    </PrivateRoute>
+                  }
+                ></Route>
+                <Route
+                  path="/reviewsreceived"
+                  element={
+                    <PrivateRoute>
+                      <ReviewsReceived />
                     </PrivateRoute>
                   }
                 ></Route>
