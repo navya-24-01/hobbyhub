@@ -13,6 +13,7 @@ function Navbar() {
           Hobby Hub
         </a>
 
+
         <button
           class="navbar-toggler"
           type="button"
@@ -25,8 +26,15 @@ function Navbar() {
           <i data-feather="menu"></i>
         </button>
 
+
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto me-lg-5">
+
+
+           
+
+
             <li class="nav-item dropdown dropdown-xl no-caret">
               <a
                 class="nav-link dropdown-toggle"
@@ -55,7 +63,7 @@ function Navbar() {
                     <a class="dropdown-item" href="./seller-listings">
                       View My Listings
                     </a>
-                    <a class="dropdown-item" href="/reviewsreceived">
+                    <a class="dropdown-item" href="page-company-team.html">
                       View My Reviews
                     </a>
                     <a class="dropdown-item" href="/PaymentsReceived">
@@ -87,6 +95,8 @@ function Navbar() {
               </div>
             </li>
 
+           
+
             <li class="nav-item dropdown no-caret">
               <a
                 class="nav-link dropdown-toggle"
@@ -97,7 +107,7 @@ function Navbar() {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                HobbyBlog
+                 HobbyBlog
                 <i class="fas fa-chevron-right dropdown-arrow"></i>
               </a>
 
@@ -106,21 +116,29 @@ function Navbar() {
                 aria-labelledby="navbarDropdownDocs"
               >
                 <div class>
-                  <div class>
-                    <h6 class="dropdown-header text-primary">Blogs</h6>
-                    <a class="dropdown-item" href="./allBlogs">
-                      Explore Blogs
-                    </a>
-                    <a class="dropdown-item" href="./myBlog">
-                      My Blogs
-                    </a>
-                    <a class="dropdown-item" href="./writeBlog">
-                      Write Blog
-                    </a>
-                  </div>
-                </div>
+                   
+                   <div class>
+                     <h6 class="dropdown-header text-primary">Blogs</h6>
+                     <a class="dropdown-item" href="./allBlogs">
+                       Explore Blogs
+                     </a>
+                     <a class="dropdown-item" href="./myBlog">
+                       My Blogs
+                     </a>
+                     <a class="dropdown-item" href="./writeBlog">
+                       Write Blog
+                     </a>
+                
+                 </div>
+
+            
+
+              </div>
               </div>
             </li>
+
+
+
             <li class="nav-item dropdown no-caret">
               <a
                 class="nav-link dropdown-toggle"
@@ -139,6 +157,7 @@ function Navbar() {
                 class="dropdown-menu dropdown-menu-end animated--fade-in-up"
                 aria-labelledby="navbarDropdownDocs"
               >
+
                 <a class="dropdown-item" href="./profile">
                   Edit My Profile
                 </a>
@@ -148,9 +167,11 @@ function Navbar() {
 
                 <div class="dropdown-divider m-0"></div>
 
+
                 <a class="dropdown-item" href="./signin">
                   Logout
                 </a>
+
               </div>
             </li>
             <button onClick={() => navigate(-1)} className="btn btn-primary">
