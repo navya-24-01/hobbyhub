@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { db } from "../../Config/firebase";
-import { doc, getDoc, addDoc, deleteDoc, collection, query, where, getDocs } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  addDoc,
+  deleteDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 import NavbarOnlyBack from "./NavBarOnlyBack";
 import "./styles.css";
 import PayPalButton from "./PayPalButton";
@@ -19,7 +28,6 @@ function ListingDetails() {
   const { createConversation } = useConversations();
   const navigate = useNavigate();
   const [deleting, setDeleting] = useState(false);
-
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -100,24 +108,29 @@ function ListingDetails() {
       setDeleting(true);
       // Check if the current user is the creator of the event
       if (listing && listing.seller === currentUser.uid) {
-
-        const paymentsQuery = query(collection(db, 'payments'), where('listingId', '==', listingId));
-        const reviewsQuery = query(collection(db, 'reviews'), where('listingId', '==', listingId));
+        const paymentsQuery = query(
+          collection(db, "payments"),
+          where("listingId", "==", listingId)
+        );
+        const reviewsQuery = query(
+          collection(db, "reviews"),
+          where("listingId", "==", listingId)
+        );
 
         const [paymentsSnapshot, reviewsSnapshot] = await Promise.all([
           getDocs(paymentsQuery),
-          getDocs(reviewsQuery)
+          getDocs(reviewsQuery),
         ]);
 
         // Log information about payments and reviews
         paymentsSnapshot.forEach((doc) => {
-          console.log('Payment ID:', doc.id);
-          console.log('Payment Data:', doc.data());
+          console.log("Payment ID:", doc.id);
+          console.log("Payment Data:", doc.data());
         });
 
         reviewsSnapshot.forEach((doc) => {
-          console.log('Review ID:', doc.id);
-          console.log('Review Data:', doc.data());
+          console.log("Review ID:", doc.id);
+          console.log("Review Data:", doc.data());
         });
 
         //this is the impt part the two lines below
@@ -151,20 +164,20 @@ function ListingDetails() {
             </div>
             <div className="listing-info">
               <h2>{listing.title}</h2>
-              <p>
+              {/* <p>
                 <strong>Category:</strong> {listing.category}
-              </p>
+              </p> */}
               <p>
                 <strong>Description:</strong> {listing.description}
               </p>
-              <p>
+              {/* <p>
                 <strong>Condition:</strong> {listing.condition}
-              </p>
+              </p> */}
               <p>
                 <strong>Hourly Rate:</strong> ${listing.hourlyrate}
               </p>
               <p>
-                <strong>Seller:</strong> {listing.sellerName}
+                <strong>Seller:</strong> {listing.seller}
               </p>
               <p>
                 <strong>
@@ -192,14 +205,15 @@ function ListingDetails() {
                   Chat Now with Seller
                 </button>
 
-
-
                 {currentUser && currentUser.uid === listing.seller && (
-                  <button className="btn btn-danger" onClick={handleDelete} disabled={deleting}>
+                  <button
+                    className="btn btn-danger"
+                    onClick={handleDelete}
+                    disabled={deleting}
+                  >
                     {deleting ? "Deleting..." : "Delete Event"}
                   </button>
                 )}
-
 
                 <button
                   onClick={handlePayNowClick}

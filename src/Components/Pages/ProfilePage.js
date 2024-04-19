@@ -8,7 +8,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from "firebase/storage";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export default function ProfilePage() {
   const { setUser, checkUserExists } = useProfile();
@@ -17,9 +17,9 @@ export default function ProfilePage() {
   const navigate = useNavigate();
 
   const [profileData, setProfileData] = useState({
-    username: '',
-    profilepic: '',
-    conversationIds: []
+    username: "",
+    profilepic: "",
+    conversationIds: [],
   });
 
   const handleChange = (e) => {
@@ -32,13 +32,16 @@ export default function ProfilePage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     if (imageFile) {
       const storage = getStorage();
       // Use UUID for file naming, as discussed, for enhanced uniqueness
-      const storageRef = ref(storage, `profiles/${Date.now()}_${imageFile.name}`);
+      const storageRef = ref(
+        storage,
+        `profiles/${Date.now()}_${imageFile.name}`
+      );
       const uploadTask = uploadBytesResumable(storageRef, imageFile);
-  
+
       uploadTask.on(
         "state_changed",
         (snapshot) => {
@@ -50,11 +53,14 @@ export default function ProfilePage() {
         },
         async () => {
           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          const newProfileData = { username: profileData.username, profilepic: downloadURL };
+          const newProfileData = {
+            username: profileData.username,
+            profilepic: downloadURL,
+          };
           await setUser(newProfileData); // Adjust this method according to your actual implementation
           setImagePreviewUrl(null);
-          setProfileData({ username: '', profilepic: '' }); // Reset form to initial state
-          navigate('/home');
+          setProfileData({ username: "", profilepic: "" }); // Reset form to initial state
+          navigate("/listings");
         }
       );
     } else {
@@ -62,10 +68,10 @@ export default function ProfilePage() {
       // Add logic here for when there's no image file to upload
     }
   };
-  
+
   return (
     <div id="layoutDefault">
-    <Navbar />
+      <Navbar />
       <div id="layoutDefault_content">
         <main>
           <header class="page-header-ui page-header-ui-dark bg-gradient-primary-to-secondary">
@@ -82,24 +88,24 @@ export default function ProfilePage() {
                       class="row g-3 align-items-center mb-3 justify-content-center"
                       onSubmit={handleSubmit}
                     >
-                    <div class="col-8">
-                      <input
-                        type="file"
-                        class="form-control form-control-solid"
-                        id="image"
-                        onChange={(event) => {
-                          const file = event.target.files[0];
-                          if (file) {
-                            setImageFile(file);
-                            const previewUrl = URL.createObjectURL(file);
-                            setImagePreviewUrl(previewUrl);
-                          } else {
-                            setImagePreviewUrl(null); // Clear preview if no file is selected
-                          }
-                        }}
-                      />
+                      <div class="col-8">
+                        <input
+                          type="file"
+                          class="form-control form-control-solid"
+                          id="image"
+                          onChange={(event) => {
+                            const file = event.target.files[0];
+                            if (file) {
+                              setImageFile(file);
+                              const previewUrl = URL.createObjectURL(file);
+                              setImagePreviewUrl(previewUrl);
+                            } else {
+                              setImagePreviewUrl(null); // Clear preview if no file is selected
+                            }
+                          }}
+                        />
                       </div>
-                
+
                       <div class="col-8">
                         <label for="username" class="visually-hidden">
                           Username
