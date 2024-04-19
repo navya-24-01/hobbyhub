@@ -28,6 +28,7 @@ function ListingDetails() {
   const { createConversation } = useConversations();
   const navigate = useNavigate();
   const [deleting, setDeleting] = useState(false);
+  const [sellerUsername, setSellerUsername] = useState("");
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -35,9 +36,20 @@ function ListingDetails() {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        setListing(docSnap.data());
+        const listingData = docSnap.data();
+        setListing(listingData);
+
+        // Fetch seller's user information
+        const sellerRef = doc(db, "user", listingData.seller); // Assuming your users are in the "users" collection
+        const sellerSnap = await getDoc(sellerRef);
+        if (sellerSnap.exists()) {
+          setSellerUsername(sellerSnap.data().username); // Assuming the username field is named 'username'
+        } else {
+          console.log("Seller not found");
+          setSellerUsername("Seller not found"); // Handle case where seller data isn't found
+        }
       } else {
-        console.log("No such document!");
+        console.log("No such listing document!");
       }
     };
 
@@ -177,8 +189,9 @@ function ListingDetails() {
                 <strong>Hourly Rate:</strong> ${listing.hourlyrate}
               </p>
               <p>
-                <strong>Seller:</strong> {listing.seller}
+                <strong>Seller:</strong> {sellerUsername || "Loading..."}
               </p>
+
               <p>
                 <strong>
                   Rental Period (Rental Period must be in intervals of hours):

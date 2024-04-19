@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { db } from '../../Config/firebase';
 import { doc, getDoc } from 'firebase/firestore';
 import Navbar from './Navbar';
+import NavbarOnlyBack from './NavBarOnlyBack';
 import './styles.css';
 import defaultprofile from '../assets/img/backgrounds/defaultprofile.png';
 import { Timestamp } from "firebase/firestore";
@@ -60,7 +61,7 @@ export default function BlogContents() {
 
     return (
         <div id="layoutDefault">
-            <Navbar />
+             <NavbarOnlyBack />
             <div id="layoutDefault_content">
             <main>
                 <section className="bg-light py-10">

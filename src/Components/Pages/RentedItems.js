@@ -10,7 +10,8 @@ function UserPayments() {
   const [payments, setPayments] = useState([]);
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [currentPayment, setCurrentPayment] = useState(null); // State to hold the current payment for review
-  const { currentUser } = useAuth(); // Get current user
+  const { currentUser } = useAuth();
+  const [sellerUsername, setSellerUsername] = useState(""); // Get current user
 
   useEffect(() => {
     const fetchUserPayments = async () => {
@@ -43,6 +44,14 @@ function UserPayments() {
                 ...paymentData,
                 listingDetails: listingData,
               });
+              const sellerRef = doc(db, "user", listingData.seller); // Assuming your users are in the "users" collection
+              const sellerSnap = await getDoc(sellerRef);
+              if (sellerSnap.exists()) {
+                setSellerUsername(sellerSnap.data().username); // Assuming the username field is named 'username'
+              } else {
+                console.log("Seller not found");
+                setSellerUsername("Seller not found"); // Handle case where seller data isn't found
+              }
             } else {
               console.log(`Listing data for payment ID ${paymentID} not found`);
               paymentsData.push({ id: paymentSnap.id, ...paymentData });
@@ -148,7 +157,7 @@ function UserPayments() {
                               </p>
                               <p>
                                 <strong>Seller:</strong>{" "}
-                                {payment.listingDetails.seller}
+                                {sellerUsername}
                               </p>
                               {payment.listingDetails.url && (
                                 <img
