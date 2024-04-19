@@ -47,12 +47,24 @@ function ReviewsReceived() {
     fetchReviews();
   }, [currentUser]);
 
-  const getListingDetails = async (listingDetails) => {
-    if (!listingDetails) {
-      console.log("Listing details are undefined or invalid.");
+  const getListingDetails = async (listingId) => {
+    if (!listingId) {
+      console.log("Listing ID is undefined or invalid.");
       return null;
     }
-    return listingDetails;
+    try {
+      const docRef = doc(db, "listings", listingId);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        return docSnap.data(); // Return the full listing details object
+      } else {
+        console.log(`No listing found for ID: ${listingId}`);
+        return null;
+      }
+    } catch (error) {
+      console.error("Error fetching listing details:", error);
+      return null;
+    }
   };
 
   async function getRenteeDetails(renteeId) {
@@ -119,6 +131,7 @@ function ReviewsReceived() {
                             <strong>Description:</strong>{" "}
                             {review.listingDetails.description}
                           </p>
+
                           {review.listingDetails.url && (
                             <img
                               src={review.listingDetails.url}

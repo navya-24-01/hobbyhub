@@ -17,10 +17,10 @@ const ReviewForm = ({ listingId, renterId, renteeId, onClose }) => {
     const reviewData = {
       rating,
       description,
-      renterId,
+      listingId,
+      renterId, // Ensure seller is properly accessed
       renteeId,
       submissionDate: new Date().toISOString(),
-      listingId,
     };
     try {
       await addDoc(collection(db, "reviews"), reviewData); // Use addDoc to add a document

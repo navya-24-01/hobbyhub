@@ -106,7 +106,7 @@ function UserPayments() {
 
                           {showReviewForm && currentPayment && (
                             <ReviewForm
-                              listingDetails={currentPayment.listingDetails}
+                              listingId={currentPayment.listingId}
                               renterId={currentPayment.listingDetails.seller}
                               renteeId={currentUser.uid} // Assuming id is part of currentUser
                               onClose={() => setShowReviewForm(false)}
