@@ -103,8 +103,10 @@ function UserPayments() {
                           >
                             Review
                           </button>
+
                           {showReviewForm && currentPayment && (
                             <ReviewForm
+                              listingDetails={currentPayment.listingDetails}
                               renterId={currentPayment.listingDetails.seller}
                               renteeId={currentUser.uid} // Assuming id is part of currentUser
                               onClose={() => setShowReviewForm(false)}
@@ -169,11 +171,6 @@ function UserPayments() {
               </div>
             </div>
           </section>
-          {console.log(
-            "Should show ReviewForm:",
-            showReviewForm,
-            currentPayment
-          )}
 
           <div id="layoutDefault_footer"></div>
         </main>
