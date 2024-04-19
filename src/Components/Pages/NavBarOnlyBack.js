@@ -4,7 +4,7 @@ import "./styles.css";
 import { useNavigate } from 'react-router-dom';
 
 
-function Navbar() {
+function NavbarOnlyBack() {
   const navigate = useNavigate(); 
   return (
     <nav class="navbar navbar-marketing navbar-expand-lg bg-white navbar-light">
@@ -45,8 +45,8 @@ function Navbar() {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                HobbyMarket
-                <i class="fas fa-chevron-right dropdown-arrow"></i>
+                
+                
               </a>
               <div
                 class="dropdown-menu dropdown-menu-end me-lg-n20 me-xl-n15 animated--fade-in-up"
@@ -69,7 +69,9 @@ function Navbar() {
                     <a class="dropdown-item" href="/PaymentsReceived">
                       View Payments I have Received
                     </a>
-                    
+                    <a class="dropdown-item" href="page-company-team.html">
+                      View Conversations with Buyers
+                    </a>
                     <div class="dropdown-divider border-0"></div>
                   </div>
                   <div class="col-lg-4 p-lg-5">
@@ -80,7 +82,12 @@ function Navbar() {
                     <a class="dropdown-item" href="./listings">
                       Explore Listings
                     </a>
-                  
+                    <a
+                      class="dropdown-item"
+                      href="page-help-support-ticket.html"
+                    >
+                      View Conversations With Sellers
+                    </a>
                     <div class="dropdown-divider border-0"></div>
                   </div>
                   <div class="col-lg-4 p-lg-5">
@@ -107,8 +114,8 @@ function Navbar() {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                 HobbyBlog
-                <i class="fas fa-chevron-right dropdown-arrow"></i>
+                
+               
               </a>
 
               <div
@@ -149,8 +156,8 @@ function Navbar() {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                My Profile
-                <i class="fas fa-chevron-right dropdown-arrow"></i>
+               
+                
               </a>
 
               <div
@@ -160,9 +167,6 @@ function Navbar() {
 
                 <a class="dropdown-item" href="./profile">
                   Edit My Profile
-                </a>
-                <a class="dropdown-item" href="./conversations">
-                  View My Conversations
                 </a>
 
                 <div class="dropdown-divider m-0"></div>
@@ -184,4 +188,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default NavbarOnlyBack;

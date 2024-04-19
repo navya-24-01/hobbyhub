@@ -1,16 +1,5 @@
-
-
-
 import { useEffect, useState } from "react";
-import {
-  addDoc,
-  collection,
-  serverTimestamp,
-  onSnapshot,
-  where,
-  query,
-  orderBy,
-} from "firebase/firestore";
+import { addDoc, collection, serverTimestamp, onSnapshot, where, query, orderBy, updateDoc, doc } from "firebase/firestore";
 import { db } from "../../Config/firebase";
 import { useAuth } from "../../Context/AuthorizationContext";
 import { useParams } from "react-router-dom";
@@ -45,23 +34,36 @@ export const Chat = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (newMessage === "") {
+    if (newMessage.trim() === "") {
       console.error("Message is empty.");
       return;
     }
-
-    await addDoc(messageRef, {
+  
+    const messagePayload = {
       text: newMessage,
       createdAt: serverTimestamp(),
       user: currentUser.uid,
       id,
-    });
-
-    setNewMessage("");
+    };
+  
+    try {
+      // Add the new message to the messages collection
+      const newMessageRef = await addDoc(messageRef, messagePayload);
+  
+      // Update the lastText in the conversation document
+      const conversationRef = doc(db, "conversations", id);
+      await updateDoc(conversationRef, {
+        lastText: messagePayload.text,
+        lastUpdatedAt: serverTimestamp(),
+      });
+  
+      console.log("Message sent and conversation updated.");
+      setNewMessage("");
+    } catch (error) {
+      console.error("Error sending message or updating conversation:", error);
+    }
   };
-
-  // JSX for the chat component goes here
-
+  
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh', padding: '20px' }}>

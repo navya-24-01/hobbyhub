@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { db } from "../../Config/firebase";
 import { doc, getDoc, addDoc, deleteDoc, collection, query, where, getDocs } from "firebase/firestore";
-import Navbar from "./Navbar";
+import NavbarOnlyBack from "./NavBarOnlyBack";
 import "./styles.css";
 import PayPalButton from "./PayPalButton";
 import { useAuth } from "../../Context/AuthorizationContext";
@@ -136,7 +136,7 @@ function ListingDetails() {
 
   return (
     <div>
-      <Navbar />
+      <NavbarOnlyBack />
       <div className="listing-details-container">
         {listing && (
           <div>

@@ -8,6 +8,7 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import { useNavigate } from 'react-router-dom';
+import Navbar from "./Navbar";
 
 export default function CreateListingPage() {
   const { createListing } = useListing();
@@ -76,6 +77,7 @@ export default function CreateListingPage() {
   };
   return (
     <div id="layoutDefault">
+      <Navbar/>
       <div id="layoutDefault_content">
         <main>
           <header class="page-header-ui page-header-ui-dark bg-gradient-primary-to-secondary">
