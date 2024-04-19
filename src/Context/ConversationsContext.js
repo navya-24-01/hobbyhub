@@ -48,6 +48,7 @@ export function ConversationsProvider({ children }) {
         const conversationWithTimestamp = {
           ...conversationData,
           updatedAt: serverTimestamp(),
+          lastText: "No messages"
         };
 
         const conversationRef = await addDoc(conversationsRef, conversationWithTimestamp);
