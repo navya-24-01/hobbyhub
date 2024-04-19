@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "./Navbar";
+import NavbarOnlyBack from "./NavBarOnlyBack";
 import { Link } from "react-router-dom";
 import { db } from "../../Config/firebase";
 import { collection, getDocs, query, where, deleteDoc, doc } from "firebase/firestore";
@@ -53,7 +53,7 @@ export default function MyBlog() {
 
     return (
         <div id="layoutDefault">
-            <Navbar />
+            <NavbarOnlyBack />
             <div id="layoutDefault_content">
                 <main>
                     <header className="page-header-ui page-header-ui-dark bg-gradient-primary-to-secondary">
