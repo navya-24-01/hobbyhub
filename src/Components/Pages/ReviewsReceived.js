@@ -22,23 +22,24 @@ function ReviewsReceived() {
         console.log("No current user, aborting fetch");
         return;
       }
+
       const reviewsRef = collection(db, "reviews");
       const q = query(reviewsRef, where("renterId", "==", currentUser.uid));
       const querySnapshot = await getDocs(q);
-      const reviewsData = [];
+      const reviewsData = await Promise.all(
+        querySnapshot.docs.map(async (doc) => {
+          const reviewData = doc.data();
+          const listingDetails = await getListingDetails(reviewData.listingId);
+          const renteeDetails = await getRenteeDetails(reviewData.renteeId);
 
-      for (const doc of querySnapshot.docs) {
-        const reviewData = doc.data();
-        const listingDetails = await getListingDetails(reviewData.listingId);
-        const renteeDetails = await getRenteeDetails(reviewData.renteeId);
-
-        reviewsData.push({
-          id: doc.id,
-          ...reviewData,
-          listingDetails,
-          renteeDetails,
-        });
-      }
+          return {
+            id: doc.id,
+            ...reviewData,
+            listingDetails,
+            renteeDetails,
+          };
+        })
+      );
 
       setReviews(reviewsData);
     };
@@ -47,16 +48,14 @@ function ReviewsReceived() {
   }, [currentUser]);
 
   const getListingDetails = async (listingDetails) => {
-    // Check if listingDetails is valid
     if (!listingDetails) {
       console.log("Listing details are undefined or invalid.");
       return null;
     }
-    // Since listingDetails already contains all needed information, just return it
     return listingDetails;
   };
 
-  const getRenteeDetails = async (renteeId) => {
+  async function getRenteeDetails(renteeId) {
     if (!renteeId) {
       console.log("Rentee ID is undefined or invalid:", renteeId);
       return null;
@@ -64,74 +63,83 @@ function ReviewsReceived() {
     const docRef = doc(db, "user", renteeId);
     const docSnap = await getDoc(docRef);
     return docSnap.exists() ? docSnap.data() : null;
+  }
+
+  const renderStars = (rating) => {
+    return [...Array(5)].map((_, index) => (
+      <span
+        key={index}
+        className={`star ${index < rating ? "active" : "inactive"}`}
+      >
+        ★
+      </span>
+    ));
   };
 
   return (
     <div>
       <Navbar />
-      <div className="listing-details-container">
-        <h1>Reviews Received</h1>
-
-        <div className="listing-container">
-          {reviews.length > 0 ? (
-            reviews.map((review) => (
-              <div key={review.id} className="review-card">
-                <div>
-                  <strong>Rating:</strong> {review.rating}
-                </div>
-                <div>
-                  <strong>Description:</strong> {review.description}
-                </div>
-                {review.listingDetails && (
-                  <div>
-                    <div className="listing-image-container">
-                      <img
-                        src={
-                          review.listingDetails.url ||
-                          "https://source.unsplash.com/featured/?hobby"
-                        }
-                        alt={review.listingDetails.title}
-                        className="listing-image"
-                      />
-                    </div>
-                    <div className="listing-info">
-                      <h2>{review.listingDetails.title}</h2>
-                      <p>
-                        <strong>Category:</strong>{" "}
-                        {review.listingDetails.category}
-                      </p>
-                      <p>
-                        <strong>Description:</strong>{" "}
-                        {review.listingDetails.description}
-                      </p>
-                      <p>
-                        <strong>Condition:</strong>{" "}
-                        {review.listingDetails.condition}
-                      </p>
-                      <p>
-                        <strong>Hourly Rate:</strong> $
-                        {review.listingDetails.hourlyrate}
-                      </p>
-                      <p>
-                        <strong>Seller:</strong>{" "}
-                        {review.listingDetails.sellerName}
-                      </p>
-                    </div>
-                  </div>
-                )}
-                {review.renteeDetails && (
-                  <div>
-                    <strong>Rentee Name:</strong>{" "}
-                    {review.renteeDetails.username}
-                  </div>
-                )}
-              </div>
-            ))
-          ) : (
-            <p>No reviews found.</p>
-          )}
+      <header className="page-header-ui page-header-ui-dark bg-gradient-primary-to-secondary">
+        <div className="container px-5 text-center">
+          <h1 className="page-header-ui-title mb-3">Reviews Received</h1>
+          <p className="page-header-ui-text mb-4">
+            Explore feedback from your renters.
+          </p>
         </div>
-      </div>
+      </header>
+      <section className="bg-white py-10">
+        <div className="container px-5">
+          <h2 className="text-center mb-5">Review Details</h2>
+          <div className="row gx-5">
+            {reviews.length > 0 ? (
+              reviews.map((review) => (
+                <div className="col-lg-6 mb-5" key={review.id}>
+                  <div className="card lift h-100">
+                    <div className="card-body">
+                      <h5 className="card-title">
+                        Review by: {review.renteeDetails.username}
+                      </h5>
+                      <div>
+                        <strong>Rating:</strong> {renderStars(review.rating)}
+                      </div>
+                      <p>
+                        <strong>Description:</strong> {review.description}
+                      </p>
+                      {review.listingDetails && (
+                        <>
+                          <hr />
+                          <h5 className="card-title">
+                            {review.listingDetails.title}
+                          </h5>
+                          <p>
+                            <strong>Category:</strong>{" "}
+                            {review.listingDetails.category}
+                          </p>
+                          <p>
+                            <strong>Description:</strong>{" "}
+                            {review.listingDetails.description}
+                          </p>
+                          {review.listingDetails.url && (
+                            <img
+                              src={review.listingDetails.url}
+                              alt="Listing"
+                              style={{ width: "100%", height: "auto" }}
+                            />
+                          )}
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="text-center w-100">
+                <p>No reviews found.</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
